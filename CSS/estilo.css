@@ -1,0 +1,85 @@
+* {
+    box-sizing: border-box;
+  }
+  
+  body {
+    font-family: 'Segoe UI', sans-serif;
+    background: #90ee90; /* Verde normal */
+    display: flex;
+    justify-content: center;
+    align-items: center;
+    height: 100vh;
+    margin: 0;
+  }
+  
+  .container.split {
+    display: flex;
+    width: 700px;
+    background: white;
+    border-radius: 15px;
+    overflow: hidden;
+    box-shadow: 0 0 15px rgba(0,0,0,0.1);
+  }
+  
+  .image-side {
+    flex: 1;
+    background-color: #e6f5e6;
+    display: flex;
+    align-items: center;
+    justify-content: center;
+  }
+  
+  .image-side img {
+    max-width: 100%;
+    max-height: 300px;
+  }
+  
+  .form-side {
+    flex: 1;
+    padding: 30px;
+  }
+  
+  h2 {
+    text-align: center;
+    margin-bottom: 20px;
+    color: #333;
+  }
+  
+  input[type="text"],
+  input[type="email"],
+  input[type="password"],
+  input[type="date"],
+  input[type="number"] {
+    width: 100%;
+    padding: 10px;
+    margin: 8px 0;
+    border: 1px solid #ccc;
+    border-radius: 8px;
+  }
+  
+  button {
+    width: 100%;
+    padding: 10px;
+    background-color: #0077cc;
+    color: white;
+    border: none;
+    border-radius: 8px;
+    margin-top: 10px;
+    cursor: pointer;
+  }
+  
+  button:hover {
+    background-color: #005fa3;
+  }
+  
+  .toggle-form {
+    text-align: center;
+    margin-top: 15px;
+  }
+  
+  .toggle-form a {
+    color: #0077cc;
+    text-decoration: none;
+    cursor: pointer;
+  }
+  
