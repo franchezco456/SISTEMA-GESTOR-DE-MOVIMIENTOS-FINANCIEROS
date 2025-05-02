@@ -1,9 +1,9 @@
-body{
+body {
     background-color: white;
 }
 
 /*CUADROS*/
-#CuadroSuperior{
+#CuadroSuperior {
     background-color: greenyellow;
     height: 20%;
     width: 99%;
@@ -14,37 +14,39 @@ body{
 
 
 }
-.efectoglass{
-    background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
+
+.efectoglass {
+    background: linear-gradient(135deg, rgba(255, 255, 255, 0.1), rgba(255, 255, 255, 0));
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
-    box-shadow: 0 8px 32px 0 rgba(0,0,0,0.37);
-    border: 1px solid rgba(255,255,255,0.18);
+    box-shadow: 0 8px 32px 0 rgba(0, 0, 0, 0.37);
+    border: 1px solid rgba(255, 255, 255, 0.18);
     border-radius: 32px;
     width: 50%;
     height: 200px;
     margin-top: 5%;
-    display: grid; 
-    grid-template-columns: 1fr 2fr 1fr; 
+    display: grid;
+    grid-template-columns: 1fr 2fr 1fr;
     grid-template-rows: 1fr 1fr 1fr;
     padding: 10px;
     margin-left: 5%;
-    
+
 }
 
 /*TEXTOS*/
-h1{
+h1 {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 30px;
     color: white;
     padding-left: 5%;
 
-    
+
 }
-#usuario{
+
+#usuario {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    max-width: 100%; 
+    max-width: 100%;
     color: black;
     text-align: center;
     display: inline-block;
@@ -52,10 +54,11 @@ h1{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#saldo{
+
+#saldo {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    max-width: 90%; 
+    max-width: 90%;
     color: black;
     text-align: center;
     display: inline-block;
@@ -63,10 +66,11 @@ h1{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#tope{
+
+#tope {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    max-width: 90%; 
+    max-width: 90%;
     color: black;
     text-align: center;
     display: inline-block;
@@ -74,23 +78,24 @@ h1{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#u{
+
+#u {
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
-    max-width: 250px; 
+    max-width: 250px;
     color: black;
     text-align: left;
     display: inline-block;
     white-space: nowrap;
     overflow: hidden;
     text-overflow: ellipsis;
-    
+
 }
 
 
 /*BOTONES*/
 .boton {
-    
+
     font-size: 16px;
     background-color: greenyellow;
     color: white;
@@ -99,10 +104,11 @@ h1{
     transition: transform 0.2s ease;
     cursor: pointer;
     width: 100px;
-    
 
-  }
 
-  .boton:hover {
-    transform: scale(1.1); /* Aumenta el tamaño en un 10% */
-  }
+}
+
+.boton:hover {
+    transform: scale(1.1);
+    /* Aumenta el tamaño en un 10% */
+}
