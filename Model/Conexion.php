@@ -22,7 +22,6 @@ class Conexion{
             "mysql:host=" . $this->host . ";dbname=" . $this->db,
             $this->user, $this->pass
         );
-        echo("se conecto a la bd");
         return $this->cn;
         } catch (PDOException $e) {
             die($e->getMessage());
@@ -33,7 +32,6 @@ class Conexion{
         if ($this->cn != null) {
             try {
                 $this->cn = null;
-                echo("se desconecto de la bd");
             } catch (PDOException $e) {
                 die($e->getMessage());
             }

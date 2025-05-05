@@ -12,9 +12,9 @@
     </div>
     <div class="form-side">
       <h2>Iniciar Sesión</h2>
-      <form>
-        <input type="text" placeholder="Usuario o Correo" required>
-        <input type="password" placeholder="Contraseña" required>
+      <form action="../Controller/login.php" method="POST">
+        <input type="text" id="correo" name="correo" placeholder="Correo" required>
+        <input type="password" id="pass" name="pass" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>
       </form>
       <div class="toggle-form">
