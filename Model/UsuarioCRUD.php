@@ -18,8 +18,9 @@ class UsuarioCRUD extends Conexion {
         $stmt->bindParam(2, $correo);
         $stmt->bindParam(3, $pass);
         $stmt->bindParam(4, $id);
-        $this->executeCommand($stmt);                   
+        $result=$this->executeCommand($stmt);                   
         $this->desconectar();
+		return $result;
     }
 // eliminar usuario
     public function deleteUsuario(Usuario $usuario){

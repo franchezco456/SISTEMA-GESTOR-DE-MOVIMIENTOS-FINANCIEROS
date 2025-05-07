@@ -16,6 +16,7 @@ class Usuario implements JsonSerializable{
     public function crearUsuario(Usuario $usuario){
         $crud = new UsuarioCRUD();
         $resultado=$crud->saveUsuario($usuario);
+		return $resultado;
     }
     //eliminar usuario
     public function eliminarUsuario(Usuario $usuario){

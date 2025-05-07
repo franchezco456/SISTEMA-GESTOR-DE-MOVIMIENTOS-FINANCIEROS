@@ -6,9 +6,11 @@ $correo = $_POST['correo'];
 $pass = $_POST['pass'];
 $cedula = $_POST['cedula'];
 $usuario = new Usuario($cedula, $nombre, $correo, $pass);
-$usuario->crearUsuario($usuario);
-header('location: ../View/registro.html');
-} else {
-header('location: ../View/registro.html');
+$resultado=$usuario->crearUsuario($usuario);
+if($resultado){
+	header('location: ../View/registro.html');
+}else{
+	header('location: ../View/registro.html');
+}
 }
 ?>
