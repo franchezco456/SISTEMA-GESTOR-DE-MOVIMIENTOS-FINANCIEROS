@@ -4,17 +4,41 @@ body{
 
 /*CUADROS*/
 #CuadroSuperior{
-    background-color: greenyellow;
+    background-color:  #90ee90;
     height: 20%;
     width: 99%;
     border-radius: 10px 30px 60px 120px;
     display: grid;
     grid-template-columns: 3fr 2fr 1fr;
     padding: 10px;
-
-
 }
-.efectoglass{
+#inferior {
+    width: 90%;
+    height: 300px;
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 10px;
+  }
+
+
+#contenedor {
+    width: 90%;
+    height: 300px;
+    margin-top: 20px;
+    overflow-x: auto;
+    overflow-y: hidden;
+    white-space: nowrap;
+    border: 1px solid #ccc;
+    background-color: #f9f9f9;
+    padding: 10px;
+  }
+
+  .mi-div {
+    display: inline-block;
     background: linear-gradient(135deg, rgba(255,255,255,0.1), rgba(255,255,255,0));
     -webkit-backdrop-filter: blur(20px);
     backdrop-filter: blur(20px);
@@ -24,13 +48,21 @@ body{
     width: 50%;
     height: 200px;
     margin-top: 5%;
-    display: grid; 
-    grid-template-columns: 1fr 2fr 1fr; 
-    grid-template-rows: 1fr 1fr 1fr;
-    padding: 10px;
-    margin-left: 5%;
-    
-}
+    margin: 10px;
+  }
+  /* Formulario oculto */
+  .oculto {
+    display: none;
+  }
+  .formulario {
+    margin-top: 20px;
+    padding: 15px;
+    border: 1px solid #ccc;
+    max-width: 300px;
+    background-color: #fafafa;
+    border-radius: 6px;
+  }
+
 
 /*TEXTOS*/
 h1{
@@ -40,8 +72,14 @@ h1{
     padding-left: 5%;
 
     
+}h2{
+  font-family:Arial, Helvetica, sans-serif;
+  font-size: 28px;
+  color: black;
+  
+
 }
-#usuario{
+#cuenta{
     font-family: Arial, Helvetica, sans-serif;
     font-size: 20px;
     max-width: 100%; 
@@ -74,25 +112,13 @@ h1{
     overflow: hidden;
     text-overflow: ellipsis;
 }
-#u{
-    font-family: Arial, Helvetica, sans-serif;
-    font-size: 20px;
-    max-width: 250px; 
-    color: black;
-    text-align: left;
-    display: inline-block;
-    white-space: nowrap;
-    overflow: hidden;
-    text-overflow: ellipsis;
-    
-}
 
 
 /*BOTONES*/
 .boton {
     
     font-size: 16px;
-    background-color: greenyellow;
+    background-color:  #90ee90;
     color: white;
     border: 2px solid black;
     border-radius: 35px;
@@ -103,6 +129,69 @@ h1{
 
   }
 
-  .boton:hover {
+ 
+  .boton1{
+    font-size: 52px;
+    background-color:  #90ee90;
+    color: white;
+    border: 2px solid black;
+    border-radius: 35px;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    width: 90px;
+    margin-top: 30px;
+    
+  }
+  .boton1:hover {
     transform: scale(1.1); /* Aumenta el tamaño en un 10% */
+  }
+  
+  .boton2{
+    font-size: 22px;
+    background-color:  #90ee90;
+    color: white;
+    border: 2px solid black;
+    border-radius: 35px;
+    transition: transform 0.2s ease;
+    cursor: pointer;
+    width: 100px;
+    margin-top: 30px;
+  }
+  .boton2:hover {
+    transform: scale(1.1); /* Aumenta el tamaño en un 10% */
+  }
+  .dropdown {
+    position: relative;
+    display: inline-block;
+  }
+  
+  .dropbtn {
+    background-color: #3498db;
+    color: white;
+    padding: 10px 18px;
+    font-size: 16px;
+    border: none;
+    cursor: pointer;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content {
+    display: none;
+    position: absolute;
+    background-color: #f1f1f1;
+    min-width: 160px;
+    box-shadow: 0px 8px 16px rgba(0,0,0,0.2);
+    z-index: 1;
+    border-radius: 4px;
+  }
+  
+  .dropdown-content a {
+    color: black;
+    padding: 10px 14px;
+    text-decoration: none;
+    display: block;
+  }
+  
+  .dropdown-content a:hover {
+    background-color: #ddd;
   }
