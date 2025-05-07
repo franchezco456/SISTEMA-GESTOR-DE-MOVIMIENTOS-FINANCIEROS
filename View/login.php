@@ -18,7 +18,7 @@
         <button type="submit">Entrar</button>
       </form>
       <div class="toggle-form">
-        ¿No tienes cuenta? <a href="registro.html">Regístrate</a>
+        ¿No tienes cuenta? <a href="registro.php">Regístrate</a>
       </div>
     </div>
   </div>
