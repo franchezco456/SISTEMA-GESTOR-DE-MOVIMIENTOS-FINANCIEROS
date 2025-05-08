@@ -18,18 +18,6 @@
   <!--cuadro superior-->
   <div id="CuadroSuperior">
     <h1>GESTOR DE MOVIMIENTOS FINANCIEROS</h1>
-<<<<<<< HEAD:View/principal.php
-    <label>
-        
-    </label>
-     <button class="boton">
-        <!--  AQUI PONGAN EL LINK PARA IR A LOS AJUSTES --> 
-        <a href="../View/ConfiguracionUsuarios.php"> 
-          <img src="../Media/ajusicon.png" style="height: 70px; width: 80px;" >
-        </a>   
-    </button>   
-    </div> 
-=======
      <p></p>
     <button class="boton1" style="border: none;">
       
@@ -39,7 +27,6 @@
       </a>
     </button>
   </div>
->>>>>>> Jericoth:View/principal.html
 
   <!--Cuadro Inferior-->
   <center>
@@ -57,16 +44,6 @@
         <label style="font-family: Arial, Helvetica, sans-serif;">Tope:</label>
         <input type="number" id="inputTope" required   style="font-family: Arial, Helvetica, sans-serif;"><br><br>
 
-<<<<<<< HEAD:View/principal.php
-            <button class="boton">
-                <a href="../View/ModificarCuenta.php">
-                    <img src="../Media/ajusticoon.png" style="height: 50px; width: 50px;">
-                </a>
-            </button>
-        </div>
-        <!--HISTORIAL-->
-        <div class="efectoglass" style="height: 250px; width: 35%;"></div>
-=======
         <button type="submit" class="boton1" style="width: 100px; font-size: 16px; background-color: aquamarine;">Crear</button>
       </form>
     </div>
@@ -81,7 +58,6 @@
     <div id="inferior" style="display: grid; grid-template-columns: 2fr 1fr;">
       <canvas id="graficaGastos" width="600" height="300"></canvas>
       <canvas id="graficaPastel" width="600" height="300"></canvas>
->>>>>>> Jericoth:View/principal.html
 
     </div>
 

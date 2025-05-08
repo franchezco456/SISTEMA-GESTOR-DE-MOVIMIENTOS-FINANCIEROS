@@ -9,6 +9,6 @@ $usuario->consultarUsuario($usuario);
 if (isset($_SESSION['usuarioActual'])) {
     header('location: ../View/principal.php');
 } else {
-    header('location: ../View/login.html');
+    header('location: ../View/login.php');
 }
 ?>

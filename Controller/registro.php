@@ -8,9 +8,9 @@ $cedula = $_POST['cedula'];
 $usuario = new Usuario($cedula, $nombre, $correo, $pass);
 $resultado=$usuario->crearUsuario($usuario);
 if($resultado){
-	header('location: ../View/registro.html');
+	header('location: ../View/registro.php');
 }else{
-	header('location: ../View/registro.html');
+	header('location: ../View/registro.php');
 }
 }
 ?>
