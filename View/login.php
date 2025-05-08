@@ -3,11 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
-<<<<<<< HEAD:View/login.html
-  <link rel="stylesheet" href="../CSS/estilo.css">
-=======
   <link rel="stylesheet" href="../CSS/Login y Registro.css">
->>>>>>> jesulini:View/login.php
 </head>
 <body>
   <div class="container split">
