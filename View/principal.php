@@ -17,7 +17,7 @@
     </label>
      <button class="boton">
         <!--  AQUI PONGAN EL LINK PARA IR A LOS AJUSTES --> 
-        <a href="INCERTE EL MALDITO LINK PARA IR A AJUSTES AQUI NO SEA PENDEJO"> 
+        <a href="../View/ConfiguracionUsuarios.php"> 
           <img src="../Media/ajusicon.png" style="height: 70px; width: 80px;" >
         </a>   
     </button>   
@@ -42,7 +42,9 @@
             <label id="tope" name="tope" style="padding: 10px; text-align: left;">000000000000000</label>
 
             <button class="boton">
-                <img src="../Media/ajusticoon.png" style="height: 50px; width: 50px;">
+                <a href="../View/ModificarCuenta.php">
+                    <img src="../Media/ajusticoon.png" style="height: 50px; width: 50px;">
+                </a>
             </button>
         </div>
         <!--HISTORIAL-->
