@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Modificar Cuenta</title>
-    <link rel="stylesheet" href="../CSS/ModificarCuenta.css">
+    <link rel="stylesheet" href="../../../View/CSS/ModificarCuenta.css">
 </head>
 <body>
     <div class="modificar-container">
-        <a href="Principal.html" class="back-button">←</a>
+        <a href="../Usuarios/principal.php" class="back-button">←</a>
         <h2>Modificar Datos de la Cuenta</h2>
         <form>
             <label>Nombre actual: <strong>USUARIO123456789</strong></label>

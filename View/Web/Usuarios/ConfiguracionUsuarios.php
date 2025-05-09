@@ -3,11 +3,11 @@
 <head>
   <meta charset="UTF-8">
   <title>Configuración de Usuario</title>
-  <link rel="stylesheet" href="../CSS/configuracion de usuarios.css">
+  <link rel="stylesheet" href="../../../View/CSS/configuracion de usuarios.css">
 </head>
 <body>
   <div class="config-container">
-    <a href="../View/principal.html" class="back-button">←</a>
+    <a href="../Usuarios/principal.php" class="back-button">←</a>
     <h2>Configuración de Usuario</h2>
     <form>
       <label>Nombre de usuario actual: <strong>jesustellez</strong></label>

@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Login</title>
-  <link rel="stylesheet" href="../CSS/Login y Registro.css">
+  <link rel="stylesheet" href="../../../View/CSS/Login_y_Registro.css">
 </head>
 <body>
   <div class="container split">
@@ -12,7 +12,7 @@
     </div>
     <div class="form-side">
       <h2>Iniciar Sesión</h2>
-      <form action="../Controller/login.php" method="POST">
+      <form action="../../../Controller/Usuario/login.php" method="POST">
         <input type="text" id="correo" name="correo" placeholder="Correo" required>
         <input type="password" id="pass" name="pass" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>

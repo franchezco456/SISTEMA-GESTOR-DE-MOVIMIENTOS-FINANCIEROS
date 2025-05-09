@@ -3,7 +3,7 @@
 <head>
   <meta charset="UTF-8">
   <title>Registro</title>
-  <link rel="stylesheet" href="../CSS/Login y Registro.css">
+  <link rel="stylesheet" href="../../../View/CSS/Login_y_Registro.css">
 </head>
 <body>
   <div class="container split">
@@ -13,7 +13,7 @@
     </div>
     <div class="form-side">
       <h2>Registro</h2>
-      <form action="../Controller/registro.php" method="POST">
+      <form action="../../../Controller/Usuario/registro.php" method="POST">
         <input type="text" id="nombre" name="nombre" placeholder="Nombre de usuario" required>
         <input type="email" id="correo" name="correo" placeholder="Correo electrónico" required>
         <input type="number" id="cedula" name="cedula" placeholder="Cédula" required>

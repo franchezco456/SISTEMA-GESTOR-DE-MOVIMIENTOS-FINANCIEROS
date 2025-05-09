@@ -6,10 +6,10 @@
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Principal</title>
   <!--LINKS-->
-  <link rel="stylesheet" href="../CSS/principal.css">
-  <script src="../JS/divgenerator.js"></script>
+  <link rel="stylesheet" href="../../../View/CSS/principal.css">
+  <script src="../../../View/JS/divgenerator.js"></script>
   <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
-  <script src="../JS/grafica.js"></script>
+  <script src="../../../View/JS/grafica.js"></script>
 
 
 </head>
@@ -23,7 +23,7 @@
       
       <!--  AQUI PONGAN EL LINK PARA IR A LOS AJUSTES -->
       <a href="INCERTE EL MALDITO LINK PARA IR A AJUSTES AQUI NO SEA PENDEJO">
-        <img src="../Media/ajusicon.png" style="height: 70px; width: 80px;">
+        <img src="../../../View/Media/ajusicon.png" style="height: 70px; width: 80px;">
       </a>
     </button>
   </div>
