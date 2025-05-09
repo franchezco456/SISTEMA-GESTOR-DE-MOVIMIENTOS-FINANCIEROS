@@ -12,7 +12,7 @@
     </div>
     <div class="form-side">
       <h2>Iniciar Sesión</h2>
-      <form action="../../../Controller/Usuario/login.php" method="POST">
+      <form action="../../../Model/Logica/Usuario/login.php" method="POST">
         <input type="text" id="correo" name="correo" placeholder="Correo" required>
         <input type="password" id="pass" name="pass" placeholder="Contraseña" required>
         <button type="submit">Entrar</button>

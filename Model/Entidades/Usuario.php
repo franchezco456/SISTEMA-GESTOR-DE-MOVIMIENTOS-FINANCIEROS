@@ -11,7 +11,7 @@ class Usuario {
         $this->correo = $correo;
         $this->pass = $pass;
     }
-       public function getId(){
+    public function getId(){
         return $this->id;
     }
     public function getNombre(){
