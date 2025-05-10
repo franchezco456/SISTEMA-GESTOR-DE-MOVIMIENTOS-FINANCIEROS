@@ -1,12 +1,12 @@
 <?php 
-public class MovimientosFinancieros{
-    private idMovimiento;
-    private idCuenta;
-    private categoria;
-    private cantidad;
-    private fecha;
+ class MovimientosFinancieros{
+    private $idMovimiento;
+    private $idCuenta;
+    private $categoria;
+    private $cantidad;
+    private $fecha;
 //Contrusctor
-    public function __contructor($idMovimiento, $idCuenta, $categoria, $cantidad, $fecha){
+    public function __construct($idMovimiento, $idCuenta, $categoria, $cantidad, $fecha){
         $this->idMovimiento=$idMovimiento;
         $this->idCuenta=$idCuenta;
         $this->categoria=$categoria;
@@ -46,7 +46,5 @@ public function setFecha($fecha){
     $this->fecha=$fecha;
 }
 }
-
-$a=new MovimientoFinancieros(12,23,"Comida",3000,"10/05/2025");
 
 ?>
