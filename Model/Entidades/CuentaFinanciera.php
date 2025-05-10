@@ -1,13 +1,13 @@
 <?php
 class CuentaFinanciera{
- private idCuenta;
- private idCliente;
- private nombre;
- private cantidadInicial;
- private estadoCuenta;
- private fechaCreacion;
+ private $idCuenta;
+ private $idCliente;
+ private $nombre;
+ private $cantidadInicial;
+ private $estadoCuenta;
+ private $fechaCreacion;
 //contructor
-	public function __constructor($idCuenta, $idCliente, $nombre, $cantidadInicial, $estadoCuenta, $fechaCreacion){
+	public function __construct($idCuenta, $idCliente, $nombre, $cantidadInicial, $estadoCuenta, $fechaCreacion){
 	$this->idCuenta = $idCuenta;
 	$this->idCliente = $idCliente;
 	$this->nombre =  $nombre;
