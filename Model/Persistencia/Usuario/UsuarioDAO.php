@@ -28,8 +28,9 @@ class UsuarioDAO implements Iusuario {
         $sql="DELETE FROM usuarios WHERE idUsuario = ?";
         $stmt = $cn->getStatements($sql);
         $stmt->bindParam(1, $id);
-        $cn->executeCommand($stmt);
+        $result=$cn->executeCommand($stmt);
         $cn->desconectar();
+		return $result;
     }
 // consultar usuario
     public function consultUsuario(Usuario $usuario){
@@ -50,6 +51,20 @@ class UsuarioDAO implements Iusuario {
             return null;
         }
     }
+//validar usuario
+	public function validarUsuario(Usuario $usuario){
+		$correo = $usuario->getCorreo();
+		$id = $usuario->getId();
+		$cn = new Conexion();
+        $cn->conectar();
+        $sql="SELECT * FROM usuarios WHERE Correo = ? OR idUsuario = ?";
+        $stmt = $cn->getStatements($sql);
+        $stmt->bindParam(1, $correo);
+		$stmt->bindParam(2, $id);
+        $result = $cn->validarExistencia($stmt);
+        $cn->desconectar();
+		return $result;
+	}
 // modificar usuario
     public function updateUsuario(Usuario $usuario){
         $id = $usuario->getId();
@@ -64,8 +79,9 @@ class UsuarioDAO implements Iusuario {
         $stmt->bindParam(2, $correo);
         $stmt->bindParam(3, $pass);
         $stmt->bindParam(4, $id);
-        $cn->executeCommand($stmt);
+        $result=$cn->executeCommand($stmt);
         $cn->desconectar();
+		return $result;
     }
 
     public function obtenerTodosLosUsuarios(){

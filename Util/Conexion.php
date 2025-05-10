@@ -24,7 +24,7 @@ class Conexion{
         );
         return $this->cn;
         } catch (PDOException $e) {
-            die($e->getMessage());
+		throw new Exception ("Error al conectar con la base de datos: ".$e->getMessage());
         } 
     }
 //Desconectar
@@ -33,7 +33,7 @@ class Conexion{
             try {
                 $this->cn = null;
             } catch (PDOException $e) {
-                die($e->getMessage());
+                throw new Exception ("Error al desconectar: ".$e->getMessage());
             }
         }
     }
@@ -42,7 +42,7 @@ class Conexion{
         try {
            return $command->execute();
         } catch (PDOException $e) {
-            die($e->getMessage());
+            throw new Exception ("Error al ejecutar el comando: ".$e->getMessage());
         }
     }
 // consultas (select)
@@ -51,7 +51,7 @@ class Conexion{
             $query->execute();
             return $query->fetchAll(PDO::FETCH_ASSOC);
         } catch (PDOException $e) {
-            die($e->getMessage());
+            throw new Exception ("Error al ejecutar la consulta: ".$e->getMessage());
         }
     }
 // validacion
@@ -60,7 +60,7 @@ class Conexion{
         $query->execute();
         return $query->rowCount() > 0;
     } catch (PDOException $e) {
-        die("Error al validar existencia: " . $e->getMessage());
+        throw new Exception("Error al validar existencia: " . $e->getMessage());
     }
 }
 // consultas preparadas
@@ -69,7 +69,7 @@ class Conexion{
             $stmt = $this->cn->prepare($sql);
             return $stmt;
         } catch (PDOException $e) {
-            die("Error al preparar la consulta: " . $e->getMessage());
+            throw new Exception ("Error al preparar la consulta: " . $e->getMessage());
         }
     }
 // Get y Set

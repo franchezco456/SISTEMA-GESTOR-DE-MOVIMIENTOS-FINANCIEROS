@@ -12,23 +12,39 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 		$estadoCuenta = $Cuenta->getEstadoCuenta();
 		$cn = new Conexion();
 		$cn->conectar();
-		$sql = "INSERT INTO cuentasfinancieras (idCuenta, idCliente, nombre, cantidadInicial, estadoCuenta) VALUES(?,?,?,?,?)";
-		$stmt = $cn->getEstatements($sql);
+		$sql = "INSERT INTO cuentafinanciera (idCuenta, idCliente, nombre, cantidadInicial, estadoCuenta) VALUES(?,?,?,?,?)";
+		$stmt = $cn->getStatements($sql);
 		$stmt->bindParam(1,$idCuenta);
 		$stmt->bindParam(2,$idCliente);
 		$stmt->bindParam(3,$nombre);
 		$stmt->bindParam(4,$cantidadInicial);
-		$stmt->bindParam(5,$estadoCuenta)
+		$stmt->bindParam(5,$estadoCuenta);
 		$result = $cn->executeCommand($stmt);
 		$cn->desconectar();
 		return $result;
 	}
 //eliminar cuenta financiera
 	public function deleteCuentaFinanciera(CuentaFinanciera $Cuenta){
-		
+		$idCuenta = $cuenta->getIdCuenta();
+		$cn = new Conexion();
+		$cn->conectar();
+		$sql = "DELETE FROM cuentafinanciera WHERE idCuenta = ?"
+		$stmt = $cn->getStatements($sql);
+		$stmt->bindParam(1,$idCuenta);
+		$result = $cn->executeCommand($stmt);
+		$cn->desconectar();
+		return $result;
 	}
 //consultar cuenta financieras
 	public function consultCuentasFinanciera(CuentaFinanciera $Cuenta){
+		$idCliente = $Cuenta->getIdCliente();
+		$cn = new Conexion();
+		$cn->conectar();
+		$sql = "SELECT * FROM cuentafinanciera WHERE idCliente = ?";
+		//terminar
+	}
+//validar cuenta financiera
+	public function validarCuentaFinanciera(CuentaFinanciera $Cuenta){
 		
 	}
 //actualizar cuenta financiera
