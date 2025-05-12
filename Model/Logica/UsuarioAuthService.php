@@ -2,7 +2,7 @@
 require_once __DIR__ . '/../../Model/Persistencia/Usuario/UsuarioDAO.php';
 require_once __DIR__ . '/../../Model/Entidades/Usuario.php';
 session_start();
-class UsuarioAuthService implements JsonSerializable{
+class UsuarioAuthService{
     // crear usuario
     public function crearUsuario(Usuario $usuario){
         $DAO = new UsuarioDAO();
@@ -37,16 +37,23 @@ class UsuarioAuthService implements JsonSerializable{
     //actualizar usuario
     public function actualizarUsuario(Usuario $usuario){
         $DAO = new UsuarioDAO();
-		$validacion=$DAO->validarUsuario($usuario);
-		if($validacion){
+		$validacion=$DAO->validarCorreo($usuario);
+		if(!$validacion){
 			$resultado=$DAO->updateUsuario($usuario);
 			if($resultado){
-            $_SESSION['usuarioActual'] = json_encode($usuario);
+            $consulta = $DAO->consultUsuario($usuario);
+        	if(!empty($consulta)){
+				$usuario->setNombre($consulta->getNombre());
+				$usuario->setId($consulta->getId());
+            	$_SESSION['usuarioActual'] = json_encode($usuario);
+       		}else{
+				return null;
+			}
 			}else{
             throw new Exception("Error al actualizar el usuario");
 			}
 		}else{
-			throw new Exception("El usuario no existe");
+			throw new Exception("El correo diligenciado ya existe");
 		}
     }
     //consultar usuario
@@ -71,10 +78,9 @@ class UsuarioAuthService implements JsonSerializable{
 			throw new Exception("Error listar los usuarios");
 		}
     }
-
-    public function jsonSerialize(){
-        return get_object_vars($this);
-    }
- 
 }
+$a= new UsuarioAuthService();
+$usuario = new Usuario(2,"juan","juancito8@gmail.com","juanito1");
+$a->eliminarUsuario($usuario);
+echo $_SESSION['usuarioActual'];
 ?>

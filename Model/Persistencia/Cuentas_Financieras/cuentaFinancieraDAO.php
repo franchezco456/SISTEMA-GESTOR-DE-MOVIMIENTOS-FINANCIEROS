@@ -1,7 +1,8 @@
 <?php
 require_once "IcuentaFinanciera.php";
 require_once __DIR__ . '/../../../Model/Entidades/CuentaFinanciera.php';
-require_once "../../Util/Conexion.php";
+require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
+require_once dirname(__DIR__, 3) . '/Util/Conexion.php';
 class CuentaFinancieraDAO implements IcuentaFinanciera{
 //Crear cuenta financiera
 	public function saveCuentaFinanciera(CuentaFinanciera $Cuenta){
@@ -23,25 +24,25 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 	}
 //eliminar cuenta financiera
 	public function deleteCuentaFinanciera(CuentaFinanciera $Cuenta){
-		$idCuenta = $Cuenta->getIdCuenta();
+		$nombre = $Cuenta->getNombre();
 		$cn = new Conexion();
 		$cn->conectar();
-		$sql = "DELETE FROM cuentafinanciera WHERE idCuenta = ?";
+		$sql = "DELETE FROM cuentafinanciera WHERE nombre = ?";
 		$stmt = $cn->getStatements($sql);
-		$stmt->bindParam(1,$idCuenta);
+		$stmt->bindParam(1,$nombre);
 		$result = $cn->executeCommand($stmt);
 		$cn->desconectar();
 		return $result;
 	}
 //consultar cuenta financieras
-	public function consultCuentasFinanciera(CuentaFinanciera $Cuenta){
-		$idCliente = $Cuenta->getIdCliente();
+	public function consultCuentasFinancieras(Usuario $user){
+		$idCliente = $user->getId();
 		$cn = new Conexion();
 		$cn->conectar();
 		$sql = "SELECT * FROM cuentafinanciera WHERE idCliente = ?";
 		$stmt = $cn->getStatements($sql);
 		$stmt -> bindParam(1,$idCliente);
-		$result = $cn->executeCommand($stmt);
+		$result = $cn->executeQuery($stmt);
 		$cn->desconectar();
 		if(!empty($result)){
 			$cuentasUsuario = [];
@@ -89,12 +90,12 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 		return $result;
 	}
 //listar todas las cuentas 
-	public function listCuentasFinanciera(){
+	public function listCuentasFinancieras(){
 		$cn = new Conexion();
 		$cn->conectar();
 		$sql = "SELECT * FROM cuentafinanciera";
 		$stmt = $cn->getStatements($sql);
-		$result = $cn->executeCommand($stmt);
+		$result = $cn->executeQuery($stmt);
 		$cn->desconectar();
 		if(!empty($result)){
 			$allCuentas = [];

@@ -1,5 +1,5 @@
 <?php
-class CuentaFinanciera{
+class CuentaFinanciera implements JsonSerializable{
  private $idCuenta;
  private $idCliente;
  private $nombre;
@@ -53,5 +53,15 @@ class CuentaFinanciera{
 	public function setFechaCreacion($fechaCreacion){
 		$this->fechaCreacion = $fechaCreacion;
 	}
+	public function jsonSerialize() {
+        return [
+            'idCuenta' => $this->idCuenta,
+            'idCliente' => $this->idCliente,
+            'nombre' => $this->nombre,
+            'cantidadInicial' => $this->cantidadInicial,
+            'estadoCuenta' => $this->estadoCuenta,
+            'fechaCreacion' => $this->fechaCreacion,
+        ];
+    }
 }
 ?>

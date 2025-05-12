@@ -54,13 +54,25 @@ class UsuarioDAO implements Iusuario {
 //validar usuario
 	public function validarUsuario(Usuario $usuario){
 		$correo = $usuario->getCorreo();
-		$id = $usuario->getId();
+        $id = $usuario->getId();
 		$cn = new Conexion();
         $cn->conectar();
         $sql="SELECT * FROM usuarios WHERE Correo = ? OR idUsuario = ?";
         $stmt = $cn->getStatements($sql);
         $stmt->bindParam(1, $correo);
-		$stmt->bindParam(2, $id);
+        $stmt->bindParam(2, $id);
+        $result = $cn->validarExistencia($stmt);
+        $cn->desconectar();
+		return $result;
+	}
+//validar correo
+	public function validarCorreo(Usuario $usuario){
+		$correo = $usuario->getCorreo();
+		$cn = new Conexion();
+        $cn->conectar();
+        $sql="SELECT * FROM usuarios WHERE Correo = ?";
+        $stmt = $cn->getStatements($sql);
+        $stmt->bindParam(1, $correo);
         $result = $cn->validarExistencia($stmt);
         $cn->desconectar();
 		return $result;
