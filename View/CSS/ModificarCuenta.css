@@ -28,7 +28,7 @@ body {
     font-size: 20px;
     text-decoration: none;
     color: white;
-    background: #007bff; /* Azul */
+    background: #007bff;
     border-radius: 50%;
     width: 35px;
     height: 35px;
@@ -39,7 +39,7 @@ body {
 }
 
 .back-button:hover {
-    background: #0056b3; /* Azul más oscuro */
+    background: #0056b3;
 }
 
 h2 {
@@ -86,4 +86,13 @@ button {
 
 .save-btn:hover {
     background-color: #218838;
+}
+
+.conf-btn{
+    background-color: #0094fe;
+    color: white;
+}
+
+.conf-btn:hover{
+    background-color: blue;
 }

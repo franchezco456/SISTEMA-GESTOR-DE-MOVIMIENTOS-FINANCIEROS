@@ -68,18 +68,22 @@
     cursor: pointer;
   }
   
-  button:hover {
-    background-color: #005fa3;
-  }
-  
-  .toggle-form {
-    text-align: center;
-    margin-top: 15px;
-  }
-  
-  .toggle-form a {
-    color: #0077cc;
-    text-decoration: none;
-    cursor: pointer;
-  }
-  
+  .back-button {
+  position: absolute;
+  top: 15px;
+  left: 15px;
+  font-size: 20px;
+  text-decoration: none;
+  color: white;
+  background: #007bff;
+  border-radius: 50%;
+  width: 35px;
+  height: 35px;
+  display: flex;
+  justify-content: center;
+  align-items: center;
+  transition: background 0.3s;
+}
+
+.back-button:hover {
+  background: #0056b3;}

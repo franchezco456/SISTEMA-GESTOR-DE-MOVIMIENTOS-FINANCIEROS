@@ -1,0 +1,48 @@
+<!DOCTYPE html>
+<html lang="es">
+<head>
+  <meta charset="UTF-8">
+  <title>Reglas y Topes Financieros</title>
+  <link rel="stylesheet" href="/View/CSS/reglas y topes.css">
+</head>
+<body>
+  <br><br><br><br>
+  <div class="form-container">
+  <a href="/View/Web/Cuentas financieras/ModificarCuenta.html"><button class="circle-btn">←</button></a>
+  <h1>Configuración de Topes Financieros</h1>
+
+    
+    <div class="form-section">
+    <h2>Topes Financieros</h2>
+
+
+      <label for="tope">Tope de gasto ($)</label>
+<input type="number" id="tope" placeholder="Ej: 500000">
+
+<label for="frecuencia">Frecuencia del tope</label>
+<select id="frecuencia">
+  <option value="semanal">Semanal</option>
+  <option value="mensual" selected>Mensual</option>
+  <option value="anual">Anual</option>
+</select>
+
+<label for="categoria">Categoria del tope</label>
+<select id="categoria">
+  <option value="alimentos">Alimentos</option>
+  <option value="facturas">Facturas</option>
+  <option value="transporte">Transporte</option>
+  <option value="compras">Compras</option>
+  <option value="regalos">Regalos</option>
+  <option value="educacion">Educación</option>
+  <option value="renta">Renta</option>
+  <option value="viajes">Viajes</option>
+  <option value="otros">Otros</option>
+</select>
+
+    </div>
+
+    <button>Guardar configuración</button>
+
+  </div>
+</body>
+</html>
