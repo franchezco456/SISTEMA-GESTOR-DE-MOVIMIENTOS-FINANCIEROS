@@ -8,7 +8,7 @@
 <body>
   <br><br><br><br>
   <div class="form-container">
-  <a href="/View/Web/Cuentas financieras/ModificarCuenta.html"><button class="circle-btn">←</button></a>
+  <a href="/View/Web/Cuentas financieras/ModificarCuenta.php"><button class="circle-btn">←</button></a>
   <h1>Configuración de Topes Financieros</h1>
 
     

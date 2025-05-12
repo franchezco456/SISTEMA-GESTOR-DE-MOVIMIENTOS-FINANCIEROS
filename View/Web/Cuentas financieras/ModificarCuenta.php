@@ -24,6 +24,6 @@
             <input type="number" placeholder="Nuevo tope máximo">
 
             <button type="submit" class="save-btn">Guardar Cambios</button>
-            <a href="/View/Web/Usuarios/reglas_y_topes.html"><button type="button" Class="conf-btn">Configuracion de tope</button></a>
+            <a href="/View/Web/Usuarios/reglas_y_topes.php"><button type="button" Class="conf-btn">Configuracion de tope</button></a>
 </body>
 </html>
