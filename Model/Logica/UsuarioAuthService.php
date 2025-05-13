@@ -79,8 +79,4 @@ class UsuarioAuthService{
 		}
     }
 }
-$a= new UsuarioAuthService();
-$usuario = new Usuario(2,"juan","juancito8@gmail.com","juanito1");
-$a->eliminarUsuario($usuario);
-echo $_SESSION['usuarioActual'];
 ?>
