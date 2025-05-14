@@ -22,7 +22,7 @@
     <button class="boton1" style="border: none;">
       
       <!--  AQUI PONGAN EL LINK PARA IR A LOS AJUSTES -->
-      <a href="INCERTE EL MALDITO LINK PARA IR A AJUSTES AQUI NO SEA PENDEJO">
+      <a href="../Usuarios/ConfiguracionUsuarios.php">
         <img src="../../../View/Media/ajusicon.png" style="height: 70px; width: 80px;">
       </a>
     </button>

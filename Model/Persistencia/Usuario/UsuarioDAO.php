@@ -66,31 +66,36 @@ class UsuarioDAO implements Iusuario {
 		return $result;
 	}
 //validar correo
-	public function validarCorreo(Usuario $usuario){
+	public function validarUsuarioActualizado(Usuario $usuario, $excludeId){
 		$correo = $usuario->getCorreo();
+        $id = $usuario->getId();
 		$cn = new Conexion();
         $cn->conectar();
-        $sql="SELECT * FROM usuarios WHERE Correo = ?";
+        $sql="SELECT * FROM usuarios WHERE (Correo = ? OR idUsuario = ?) AND idUsuario != ?";
         $stmt = $cn->getStatements($sql);
         $stmt->bindParam(1, $correo);
+        $stmt->bindParam(2, $id);
+        $stmt->bindParam(3, $excludeId);
         $result = $cn->validarExistencia($stmt);
         $cn->desconectar();
 		return $result;
 	}
 // modificar usuario
-    public function updateUsuario(Usuario $usuario){
-        $id = $usuario->getId();
-        $nombre = $usuario->getNombre();
-        $correo = $usuario->getCorreo();
-        $pass = $usuario->getPass();
+    public function updateUsuario(Usuario $usuarioOLD, Usuario $usuarioNew){
+        $idOLD = $usuarioOLD->getId();
+        $idNEW = $usuarioNew->getId();
+        $nombre = $usuarioNew->getNombre();
+        $correo = $usuarioNew->getCorreo();
+        $pass = $usuarioNew->getPass();
         $cn = new Conexion();
         $cn->conectar();
-        $sql="UPDATE usuarios SET nombre = ?, correo = ?, contraseña = ? WHERE idUsuario = ?";
+        $sql="UPDATE usuarios SET Nombre = ?, Correo = ?, Contraseña = ?, idUsuario = ? WHERE idUsuario = ?";
         $stmt=$cn->getStatements($sql);
         $stmt->bindParam(1, $nombre);
         $stmt->bindParam(2, $correo);
         $stmt->bindParam(3, $pass);
-        $stmt->bindParam(4, $id);
+        $stmt->bindParam(4, $idNEW);
+        $stmt->bindParam(5, $idOLD);
         $result=$cn->executeCommand($stmt);
         $cn->desconectar();
 		return $result;

@@ -26,8 +26,9 @@ class UsuarioAuthService{
 			$resultado=$DAO->deleteUsuario($usuario);
 			if($resultado){
 			session_destroy();
+			return true;
 			}else{
-			throw new Exception ("Error al eliminar el usuario");
+			return false;
 			}
 		}else{
 		throw new Exception ("El usuario no existe");
@@ -35,25 +36,35 @@ class UsuarioAuthService{
         
     }
     //actualizar usuario
-    public function actualizarUsuario(Usuario $usuario){
+    public function actualizarUsuario(Usuario $usuarioOLD, Usuario $usuarioNew){
         $DAO = new UsuarioDAO();
-		$validacion=$DAO->validarCorreo($usuario);
+		$correoIgual = $usuarioNew->getCorreo() == $usuarioOLD->getCorreo();
+        $idIgual = $usuarioNew->getId() == $usuarioOLD->getId();
+        $validacion = false;
+        if (!$correoIgual || !$idIgual) {
+            $usuarioParaValidar = new Usuario(
+                $idIgual ? $usuarioOLD->getId() : $usuarioNew->getId(),
+                $usuarioNew->getNombre(),
+                $correoIgual ? $usuarioOLD->getCorreo() : $usuarioNew->getCorreo(),
+                $usuarioNew->getPass()
+            );
+            $validacion = $DAO->validarUsuarioActualizado($usuarioParaValidar, $usuarioOLD->getId());
+        }
 		if(!$validacion){
-			$resultado=$DAO->updateUsuario($usuario);
+			$resultado=$DAO->updateUsuario($usuarioOLD, $usuarioNew);
 			if($resultado){
-            $consulta = $DAO->consultUsuario($usuario);
+            $consulta = $DAO->consultUsuario($usuarioNew);
         	if(!empty($consulta)){
-				$usuario->setNombre($consulta->getNombre());
-				$usuario->setId($consulta->getId());
-            	$_SESSION['usuarioActual'] = json_encode($usuario);
+            	$_SESSION['usuarioActual'] = json_encode($consulta);
+				return true;
        		}else{
-				return null;
+				return false;
 			}
 			}else{
             throw new Exception("Error al actualizar el usuario");
 			}
 		}else{
-			throw new Exception("El correo diligenciado ya existe");
+			throw new Exception("El correo o id diligenciado ya existe");
 		}
     }
     //consultar usuario
@@ -65,7 +76,7 @@ class UsuarioAuthService{
 			$usuario->setId($consulta->getId());
             $_SESSION['usuarioActual'] = json_encode($usuario);
         }else{
-			return null;
+			return false;
 		}
     }
     //listar usuarios
