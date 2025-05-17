@@ -10,14 +10,16 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 		$nombre = $Cuenta->getNombre();
 		$cantidadInicial = $Cuenta->getCantidadInicial();
 		$estadoCuenta = $Cuenta->getEstadoCuenta();
+		$tope = $Cuenta->getTope();
 		$cn = new Conexion();
 		$cn->conectar();
-		$sql = "INSERT INTO cuentafinanciera (idCliente, nombre, cantidadInicial, estadoCuenta) VALUES(?,?,?,?)";
+		$sql = "INSERT INTO cuentafinanciera (idCliente, nombre, cantidadInicial, estadoCuenta, tope) VALUES(?,?,?,?,?)";
 		$stmt = $cn->getStatements($sql);
 		$stmt->bindParam(1,$idCliente);
 		$stmt->bindParam(2,$nombre);
 		$stmt->bindParam(3,$cantidadInicial);
 		$stmt->bindParam(4,$estadoCuenta);
+		$stmt->bindParam(5,$tope);
 		$result = $cn->executeCommand($stmt);
 		$cn->desconectar();
 		return $result;
@@ -54,6 +56,7 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 				$fila['cantidadInicial'],
 				$fila['estadoCuenta'],
 				$fila['fechaCreacion'],
+				$fila['tope']
 				);
 			}
 			return $cuentasUsuario;
@@ -78,13 +81,15 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 		$nombre = $Cuenta->getNombre();
 		$cantidadInicial = $Cuenta->getCantidadInicial();
 		$idCuenta = $Cuenta->getIdCuenta();
+		$tope = $Cuenta->getTope();
 		$cn = new Conexion();
 		$cn->conectar();
-		$sql = "UPDATE cuentafinanciera SET nombre = ?, cantidadInicial = ? WHERE idCuenta = ?";
+		$sql = "UPDATE cuentafinanciera SET nombre = ?, cantidadInicial = ?, tope = ? WHERE idCuenta = ?";
 		$stmt = $cn->getStatements($sql);
 		$stmt->bindParam(1,$nombre);
 		$stmt->bindParam(2,$cantidadInicial);
-		$stmt->bindParam(3,$idCuenta);
+		$stmt->bindParam(3,$tope);
+		$stmt->bindParam(4,$idCuenta);
 		$result = $cn->executeCommand($stmt);
 		$cn->desconectar();
 		return $result;
@@ -107,6 +112,7 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 				$fila['cantidadInicial'],
 				$fila['estadoCuenta'],
 				$fila['fechaCreacion'],
+				$fila['tope']
 				);
 			}
 			return $allCuentas;

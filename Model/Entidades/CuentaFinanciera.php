@@ -6,14 +6,16 @@ class CuentaFinanciera implements JsonSerializable{
  private $cantidadInicial;
  private $estadoCuenta;
  private $fechaCreacion;
+ private $tope;
 //contructor
-	public function __construct($idCuenta, $idCliente, $nombre, $cantidadInicial, $estadoCuenta, $fechaCreacion){
+	public function __construct($idCuenta, $idCliente, $nombre, $cantidadInicial, $estadoCuenta, $fechaCreacion, $tope){
 	$this->idCuenta = $idCuenta;
 	$this->idCliente = $idCliente;
 	$this->nombre =  $nombre;
 	$this->cantidadInicial = $cantidadInicial;
 	$this->estadoCuenta = $estadoCuenta;
 	$this->fechaCreacion = $fechaCreacion;
+	$this->tope = $tope;
 	}	 
  //getters
 	public function getIdCuenta(){
@@ -34,6 +36,9 @@ class CuentaFinanciera implements JsonSerializable{
 	public function getFechaCreacion(){
 		return $this->fechaCreacion;
 	}
+	public function getTope(){
+		return $this->tope;
+	}
  //setters
 	public function setIdCuenta($idCuenta){
 		$this->idCuenta = $idCuenta;
@@ -52,6 +57,9 @@ class CuentaFinanciera implements JsonSerializable{
 	}
 	public function setFechaCreacion($fechaCreacion){
 		$this->fechaCreacion = $fechaCreacion;
+	}
+	public function setTope($tope){
+		$this->tope = $tope;
 	}
 	public function jsonSerialize() {
         return [

@@ -33,16 +33,16 @@
     <button class="boton1" onclick="mostrarFormulario()">+</button>
     <div id="formularioCategoria1" class="formulario oculto">
       <h2>Agregar</h2>
-      <form id="formAgregar">
+      <form id="formAgregar" action="../../../Controller/CuentaFinanciera/nuevaCuentaFinanciera.php" method="POST">
         <!--FORMULARIO CON LOS DATOS-->
         <label style="font-family: Arial, Helvetica, sans-serif;">Cuenta:</label>
-        <input type="text" id="inputCuenta" required  style="font-family: Arial, Helvetica, sans-serif;"><br><br>
+        <input type="text" id="inputCuenta" name="inputCuenta" required  style="font-family: Arial, Helvetica, sans-serif;"><br><br>
 
         <label style="font-family: Arial, Helvetica, sans-serif;">Saldo:</label>
-        <input type="number" id="inputSaldo" required   style="font-family: Arial, Helvetica, sans-serif;"><br><br>
+        <input type="number" id="inputSaldo" name="inputSaldo" required   style="font-family: Arial, Helvetica, sans-serif;"><br><br>
 
         <label style="font-family: Arial, Helvetica, sans-serif;">Tope:</label>
-        <input type="number" id="inputTope" required   style="font-family: Arial, Helvetica, sans-serif;"><br><br>
+        <input type="number" id="inputTope" name="inputTope" required   style="font-family: Arial, Helvetica, sans-serif;"><br><br>
 
         <button type="submit" class="boton1" style="width: 100px; font-size: 16px; background-color: aquamarine;">Crear</button>
       </form>
