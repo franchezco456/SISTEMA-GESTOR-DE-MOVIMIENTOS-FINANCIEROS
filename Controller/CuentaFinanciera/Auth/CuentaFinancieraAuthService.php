@@ -1,7 +1,7 @@
 <?php
-require_once __DIR__ . '/../../Model/Persistencia/Cuentas_Financieras/cuentaFinancieraDAO.php';
-require_once __DIR__ . '/../../Model/Entidades/CuentaFinanciera.php';
-require_once __DIR__ . '/../../Model/Entidades/Usuario.php';
+require_once __DIR__ . '/../../../Model/Persistencia/Cuentas_Financieras/cuentaFinancieraDAO.php';
+require_once __DIR__ . '/../../../Model/Entidades/CuentaFinanciera.php';
+require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
 session_start();
 class CuentaFinancieraAuthService{
 //crear cuenta financiera
@@ -18,10 +18,10 @@ class CuentaFinancieraAuthService{
 				return $listaCuentas = [];
 			}
 			}else{
-				throw new Exception("Error al crear un a cuenta");
+				return false;
 			}
 		}else{
-			throw new Exception("Cuenta ya existente");
+			return false;
 		}
 	}
 //actiualizar cuenta financiera
@@ -38,10 +38,10 @@ class CuentaFinancieraAuthService{
 				return $listaCuentas = [];
 			}
 			}else{
-				throw new Exception("Error al eliminar la cuenta");
+				return false;
 			}
 		}else{
-			throw new Exception("La cuenta no existe");
+			return false;
 		}
 	}
 //actualizar cuenta financiera
@@ -58,10 +58,10 @@ class CuentaFinancieraAuthService{
 						return $listaCuentas = [];
 					}
 				}else{
-					throw new Exception ("Error al actualizar la cuenta");
+					return false;
 				}
 			}else{
-				throw new Exception ("nombre de cuenta ya existente");
+				return false;
 			}
 		}
 //consultar cuenta financiera

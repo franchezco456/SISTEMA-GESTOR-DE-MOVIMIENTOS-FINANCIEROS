@@ -1,6 +1,6 @@
 <?php
-require_once __DIR__ . '/../../Model/Persistencia/Usuario/UsuarioDAO.php';
-require_once __DIR__ . '/../../Model/Entidades/Usuario.php';
+require_once __DIR__ . '/../../../Model/Persistencia/Usuario/UsuarioDAO.php';
+require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
 session_start();
 class UsuarioAuthService{
     // crear usuario
@@ -8,13 +8,13 @@ class UsuarioAuthService{
         $DAO = new UsuarioDAO();
 		$validacion=$DAO->validarUsuario($usuario);
 		if($validacion){
-			throw new Exception ("Usuario ya existente");
+			return false;
 		}else{
 			$resultado=$DAO->saveUsuario($usuario);
 			if($resultado){
 			return $resultado;
 			}else{
-			throw new Exception ("Error al crear el usuario");
+			return false;
 			}
 		}
     }
@@ -31,7 +31,7 @@ class UsuarioAuthService{
 			return false;
 			}
 		}else{
-		throw new Exception ("El usuario no existe");
+		return false;
 		}
         
     }
@@ -61,10 +61,10 @@ class UsuarioAuthService{
 				return false;
 			}
 			}else{
-            throw new Exception("Error al actualizar el usuario");
+            return false;
 			}
 		}else{
-			throw new Exception("El correo o id diligenciado ya existe");
+			return false;
 		}
     }
     //consultar usuario
@@ -86,7 +86,7 @@ class UsuarioAuthService{
         if(!empty($consulta)){
             $_SESSION['listadoUsuarios'] = json_encode($consulta);
         }else{
-			throw new Exception("Error listar los usuarios");
+			return false;
 		}
     }
 }

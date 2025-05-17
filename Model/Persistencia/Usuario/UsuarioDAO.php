@@ -1,5 +1,5 @@
 <?php
-require_once "../../Util/Conexion.php";
+require_once dirname(__DIR__, 3) . '/Util/Conexion.php';
 require_once "Iusuario.php";
 class UsuarioDAO implements Iusuario {
 // crear usuario

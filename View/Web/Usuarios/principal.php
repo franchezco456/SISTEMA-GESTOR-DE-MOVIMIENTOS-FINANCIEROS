@@ -56,7 +56,10 @@
       <h1>GRAFICAS</h1>
     </div>
     <div id="inferior" style="display: grid; grid-template-columns: 2fr 1fr;">
-      <canvas id="graficaGastos" width="600" height="300"></canvas>
+      <canvas id="graficaGastos" width="600" height="300">
+
+      
+      </canvas>
       <canvas id="graficaPastel" width="600" height="300"></canvas>
 
     </div>

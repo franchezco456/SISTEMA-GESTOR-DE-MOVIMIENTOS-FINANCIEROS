@@ -1,6 +1,6 @@
 <?php
 require_once "../../Model/Entidades/Usuario.php";
-require_once __DIR__ . '/../../Model/Logica/UsuarioAuthService.php';
+require_once __DIR__ . '/Auth/UsuarioAuthService.php';
 if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     function validarCampo($campo) {
         return isset($campo) && trim($campo) !== '';
@@ -32,8 +32,10 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
         if($r){
            header("location: ../../View/Web/Usuarios/ConfiguracionUsuarios.php");
         }else{
-            echo "<script>alert('Error al actualizar el usuario');</script>";
+            session_start();
+            $_SESSION['mensaje'] = "Error al actualizar el usuario";
             header("location: ../../View/Web/Usuarios/ConfiguracionUsuarios.php");
+            exit();
         }
        
     

@@ -1,8 +1,8 @@
 <?php
-require_once __DIR__ . '/../../Model/Persistencia/Movimientos_Financieros/movimientosFinancierosDAO.php';
-require_once __DIR__ . '/../../Model/Entidades/CuentaFinanciera.php';
-require_once __DIR__ . '/../../Model/Entidades/Usuario.php';
-require_once __DIR__ . '/../../Model/Entidades/MovimientosFinancieros.php';
+require_once __DIR__ . '/../../../Model/Persistencia/Movimientos_Financieros/movimientosFinancierosDAO.php';
+require_once __DIR__ . '/../../../Model/Entidades/CuentaFinanciera.php';
+require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
+require_once __DIR__ . '/../../../Model/Entidades/MovimientosFinancieros.php';
 class MovimientosFinancierosAuthService{
 //saveMovimientoFinanciero
 public function saveMovimientoFinanciero(MovimientosFinancieros $movimiento, Usuario $user){
@@ -16,7 +16,7 @@ if($resultado){
     $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
   }
 }else{
-   throw new Exception("Error al crear un movimiento financiero");
+   return false;
 }
 }
 //deleteMovimientoFinanciero
@@ -33,10 +33,10 @@ if($resultado){
     $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
   }
 }else{
-    throw new Exception("Error al eliminar el movimiento financiero");
+    return false;
 }
 }else{
-    throw new Exception("El movimiento financiero no existe");
+    return false;
 }
 }
 //actualizarMovimientoFinanciero
@@ -53,10 +53,10 @@ if($resultado){
     $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
   }
 }else{
-    throw new Exception("Error al actualizar el movimiento financiero");
+    return false;
 }
 }else{
-    throw new Exception("El movimiento financiero no existe");
+    return false;
 }
 }
 //consultar movimiento financiero 

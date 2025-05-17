@@ -15,9 +15,9 @@
             <span class="change-text">Cambiar el nombre de la cuenta</span>
             <input type="text" placeholder="Nuevo nombre de cuenta">
 
-            <label>Saldo actual: <strong>$000000000000</strong></label>
-            <span class="change-text">Modificar saldo a gastar</span>
-            <input type="number" placeholder="Nuevo saldo">
+            <label>Cantidad Inicial: <strong>$000000000000</strong></label>
+            <span class="change-text">Modificar cantidad inicial</span>
+            <input type="number" placeholder="Nueva cantidad inicial">
 
             <label>Tope máximo actual: <strong>$000000000000000</strong></label>
             <span class="change-text">Modificar tope máximo</span>

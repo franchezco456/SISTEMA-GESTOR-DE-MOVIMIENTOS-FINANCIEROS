@@ -1,3 +1,14 @@
+<?php
+session_start();
+if (isset($_SESSION['mensaje'])) {
+    echo "<script>
+            window.onload = function() {
+                alert('".$_SESSION['mensaje']."');
+            };
+          </script>";
+    unset($_SESSION['mensaje']);
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 <head>

@@ -1,6 +1,6 @@
 <?php
 require_once "../../Model/Entidades/Usuario.php";
-require_once __DIR__ . '/../../Model/Logica/UsuarioAuthService.php';
+require_once __DIR__ . '/Auth/UsuarioAuthService.php';
 session_start();
 $correo = $_POST['correo'];
 $pass = $_POST['pass'];
@@ -11,6 +11,9 @@ $auth->consultarUsuario($usuario);
 if (isset($_SESSION['usuarioActual'])) {
     header('location: ../../View/Web/Usuarios/principal.php');
 } else {
+    session_start();
+    $_SESSION['mensaje'] = "Usuario o contraseña incorrectos";
     header('location: ../../View/Web/Usuarios/login.php');
+    exit();
 }
 ?>
