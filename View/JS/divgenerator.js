@@ -37,7 +37,6 @@ document.addEventListener("DOMContentLoaded", function () {
       <p><strong>Tope:</strong> ${datos.tope}</p><br>
     `;// Agregamos contenido HTML al div con los datos de la cuenta
 
-
     // Crear el botón para eliminar la cuenta
     const botonEliminar = document.createElement("button");  // Creamos un botón de eliminar
     botonEliminar.textContent = "Eliminar";  // Establecemos el texto del botón
@@ -45,6 +44,7 @@ document.addEventListener("DOMContentLoaded", function () {
     botonEliminar.addEventListener("click", function () {  // Añadimos un evento para cuando el botón sea clickeado
       eliminarCuenta(datos.usuario, nuevoDiv);  // Llamamos a la función de eliminar cuenta
     });
+
     // Crear el botón de actualizar
     const botonActualizar = document.createElement("button");
     botonActualizar.textContent = "Actualizar";
@@ -58,8 +58,10 @@ document.addEventListener("DOMContentLoaded", function () {
     nuevoDiv.appendChild(botonEliminar);
     document.getElementById("contenedor").appendChild(nuevoDiv);  // Añadimos el div al contenedor
   }
+
+  // Función para redirigir a la página de modificación de cuenta
   function redirigirAModificarCuenta(cuenta) {
-    // Guardamos los datos en localStorage
+    // Guardamos los datos de la cuenta seleccionada en localStorage
     localStorage.setItem("cuentaSeleccionada", JSON.stringify(cuenta));
 
     // Redirigimos a la página de modificación
