@@ -24,6 +24,11 @@ switch ($_SERVER['REQUEST_METHOD']) {
         // Crear una nueva cuenta en la base de datos
         crearCuenta($conn);
         break;
+    //Modificar una cuenta en la base de datos
+    case 'PUT':
+        modificarCuenta($conn);
+        break;
+
 
     case 'DELETE':
         // Eliminar una cuenta de la base de datos
@@ -36,7 +41,8 @@ switch ($_SERVER['REQUEST_METHOD']) {
 }
 
 // Función para obtener las cuentas desde la base de datos
-function obtenerCuentas($conn) {
+function obtenerCuentas($conn)
+{
     $sql = "SELECT * FROM cuentas";  // Consulta para obtener todas las cuentas
     $result = $conn->query($sql);
 
@@ -56,7 +62,8 @@ function obtenerCuentas($conn) {
 }
 
 // Función para crear una nueva cuenta en la base de datos
-function crearCuenta($conn) {
+function crearCuenta($conn)
+{
     $data = json_decode(file_get_contents('php://input'), true);  // Obtener datos del cuerpo de la solicitud
 
     if (isset($data[0]['usuario']) && isset($data[0]['saldo']) && isset($data[0]['tope'])) {
@@ -81,7 +88,8 @@ function crearCuenta($conn) {
 }
 
 // Función para eliminar una cuenta de la base de datos
-function eliminarCuenta($conn) {
+function eliminarCuenta($conn)
+{
     $data = json_decode(file_get_contents('php://input'), true);  // Obtener datos del cuerpo de la solicitud
 
     if (isset($data['usuario'])) {
@@ -104,6 +112,30 @@ function eliminarCuenta($conn) {
         $stmt->close();
     } else {
         echo json_encode(['status' => 'error', 'message' => 'Falta el identificador de la cuenta']);
+    }
+}
+function modificarCuenta($conn)
+{
+    $data = json_decode(file_get_contents("php://input"), true);
+
+    if (
+        isset($data['usuarioAntiguo']) &&
+        isset($data['nuevoUsuario']) &&
+        isset($data['nuevoSaldo']) &&
+        isset($data['nuevoTope'])
+    ) {
+        $stmt = $conn->prepare("UPDATE cuentas SET usuario = ?, saldo = ?, tope = ? WHERE usuario = ?");
+        $stmt->bind_param("sdds", $data['nuevoUsuario'], $data['nuevoSaldo'], $data['nuevoTope'], $data['usuarioAntiguo']);
+
+        if ($stmt->execute()) {
+            echo json_encode(['status' => 'success', 'message' => 'Cuenta actualizada correctamente']);
+        } else {
+            echo json_encode(['status' => 'error', 'message' => 'Error al actualizar la cuenta']);
+        }
+
+        $stmt->close();
+    } else {
+        echo json_encode(['status' => 'error', 'message' => 'Faltan parámetros']);
     }
 }
 

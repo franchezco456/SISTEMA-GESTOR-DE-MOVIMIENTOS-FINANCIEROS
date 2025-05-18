@@ -1,13 +1,16 @@
 <?php
-class CuentaFinancieraModel {
+class CuentaFinancieraModel
+{
     private $conn;
 
-    public function __construct($db) {
+    public function __construct($db)
+    {
         $this->conn = $db;
     }
 
     // Función para guardar cuentas en la base de datos
-    public function guardarCuentas($cuentas) {
+    public function guardarCuentas($cuentas)
+    {
         foreach ($cuentas as $cuenta) {
             $usuario = $cuenta['usuario'];
             $saldo = $cuenta['saldo'];
@@ -22,10 +25,11 @@ class CuentaFinancieraModel {
     }
 
     // Función para obtener todas las cuentas desde la base de datos
-    public function obtenerCuentas() {
+    public function obtenerCuentas()
+    {
         $sql = "SELECT * FROM cuentas";
         $result = $this->conn->query($sql);
-        
+
         $cuentas = [];
         if ($result->num_rows > 0) {
             while ($row = $result->fetch_assoc()) {
