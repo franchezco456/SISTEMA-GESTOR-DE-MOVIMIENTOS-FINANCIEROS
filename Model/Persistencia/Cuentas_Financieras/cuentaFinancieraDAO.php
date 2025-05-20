@@ -76,20 +76,32 @@ class CuentaFinancieraDAO implements IcuentaFinanciera{
 		$cn->desconectar();
 		return $result;
 	}
-//actualizar cuenta financiera
-	public function updateCuentaFinanciera(CuentaFinanciera $Cuenta){
+	public function validarCuentaFinancieraActualizada(CuentaFinanciera $Cuenta, $id){
 		$nombre = $Cuenta->getNombre();
-		$cantidadInicial = $Cuenta->getCantidadInicial();
-		$idCuenta = $Cuenta->getIdCuenta();
-		$tope = $Cuenta->getTope();
 		$cn = new Conexion();
 		$cn->conectar();
-		$sql = "UPDATE cuentafinanciera SET nombre = ?, cantidadInicial = ?, tope = ? WHERE idCuenta = ?";
+		$sql="SELECT * FROM cuentafinanciera WHERE nombre = ? and idCliente= ?";
 		$stmt = $cn->getStatements($sql);
 		$stmt->bindParam(1,$nombre);
-		$stmt->bindParam(2,$cantidadInicial);
-		$stmt->bindParam(3,$tope);
-		$stmt->bindParam(4,$idCuenta);
+		$stmt->bindParam(2,$id);
+		$result=$cn->validarExistencia($stmt);
+		$cn->desconectar();
+		return $result;
+	}
+//actualizar cuenta financiera
+	public function updateCuentaFinanciera(CuentaFinanciera $CuentaNew, CuentaFinanciera $CuentaOLD){
+		$NuevoNombre = $CuentaNew->getNombre();
+		$NuevaCantidadInicial = $CuentaNew->getCantidadInicial();
+		$NuevoTope = $CuentaNew->getTope();
+		$NombreOLD = $CuentaOLD->getNombre();
+		$cn = new Conexion();
+		$cn->conectar();
+		$sql = "UPDATE cuentafinanciera SET nombre = ?, cantidadInicial = ?, tope = ? WHERE nombre = ?";
+		$stmt = $cn->getStatements($sql);
+		$stmt->bindParam(1,$NuevoNombre);
+		$stmt->bindParam(2,$NuevaCantidadInicial);
+		$stmt->bindParam(3,$NuevoTope);
+		$stmt->bindParam(4,$NombreOLD);
 		$result = $cn->executeCommand($stmt);
 		$cn->desconectar();
 		return $result;

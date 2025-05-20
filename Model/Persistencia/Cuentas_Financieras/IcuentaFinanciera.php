@@ -4,7 +4,8 @@ interface IcuentaFinanciera{
 	public function deleteCuentaFinanciera(CuentaFinanciera $Cuenta);
 	public function consultCuentasFinancieras(Usuario $user);
 	public function validarCuentaFinanciera(CuentaFinanciera $Cuenta);
-	public function updateCuentaFinanciera(CuentaFinanciera $Cuenta);
+	public function updateCuentaFinanciera(CuentaFinanciera $CuentaNew,CuentaFinanciera $CuentaOLD);
+	public function validarCuentaFinancieraActualizada(CuentaFinanciera $Cuenta, $id);
 	public function listCuentasFinancieras();
 }
 ?>

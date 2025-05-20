@@ -69,6 +69,7 @@ class CuentaFinanciera implements JsonSerializable{
             'cantidadInicial' => $this->cantidadInicial,
             'estadoCuenta' => $this->estadoCuenta,
             'fechaCreacion' => $this->fechaCreacion,
+			'tope' => $this->tope
         ];
     }
 }

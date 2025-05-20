@@ -14,28 +14,18 @@ document.addEventListener("DOMContentLoaded", function () {
     document.getElementById("saldoActual").textContent = `$${cuenta.saldo}`;  // Muestra el saldo actual con formato de moneda
     document.getElementById("topeActual").textContent = `$${cuenta.tope}`;  // Muestra el tope de la cuenta con formato de moneda
 
-    // Rellenar los campos del formulario con los datos actuales
-    document.getElementById("nuevoUsuario").value = cuenta.usuario;
-    document.getElementById("nuevoSaldo").value = cuenta.saldo;
-    document.getElementById("nuevoTope").value = cuenta.tope;
 
     // Agregar el evento de submit al formulario para modificar la cuenta
     document.getElementById("formModificar").addEventListener("submit", function (e) {
         e.preventDefault();  // Prevenimos el comportamiento por defecto de enviar el formulario
 
         // Obtenemos los valores ingresados por el usuario
-        const nuevoUsuario = document.getElementById("nuevoUsuario").value.trim();  // Trim para eliminar espacios innecesarios
-        const nuevoSaldo = parseFloat(document.getElementById("nuevoSaldo").value);  // Convertimos el saldo a número decimal
-        const nuevoTope = parseFloat(document.getElementById("nuevoTope").value);  // Convertimos el tope a número decimal
-
-        // Validación de los campos: Verificamos que todos los campos sean válidos
-        if (!nuevoUsuario || isNaN(nuevoSaldo) || isNaN(nuevoTope)) {
-            alert("Por favor, ingrese todos los campos correctamente.");
-            return;  // Si algún campo no es válido, salimos de la función
-        }
+        const nuevoUsuario = document.getElementById("nuevoUsuario").value.trim() || cuenta.usuario;  // Si está vacío, usa el valor actual
+        const nuevoSaldo = isNaN(parseFloat(document.getElementById("nuevoSaldo").value)) ? cuenta.saldo : parseFloat(document.getElementById("nuevoSaldo").value);  // Si no es un número, usa el valor actual
+        const nuevoTope = isNaN(parseFloat(document.getElementById("nuevoTope").value)) ? cuenta.tope : parseFloat(document.getElementById("nuevoTope").value);  // Si no es un número, usa el valor actual
 
         // Verificamos si hay cambios en los datos. Si no, no enviamos la solicitud.
-        if (cuenta.usuario === nuevoUsuario && cuenta.saldo === nuevoSaldo && cuenta.tope === nuevoTope) {
+        if (cuenta.usuario == nuevoUsuario && cuenta.saldo == nuevoSaldo && cuenta.tope == nuevoTope) {
             alert("No se realizaron cambios.");
             return;  // Si no hay cambios, no hacemos nada
         }
