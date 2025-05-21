@@ -5,9 +5,9 @@ require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
 session_start();
 class CuentaFinancieraAuthService{
 //crear cuenta financiera
-	public function crearCuentaFinanciera(CuentaFinanciera $cuenta,){
+	public function crearCuentaFinanciera(CuentaFinanciera $cuenta, Usuario $usuario){
 		$DAO = new CuentaFinancieraDAO();
-		$validacion = $DAO->validarCuentaFinanciera($cuenta);
+		$validacion = $DAO->validarCuentaFinanciera($cuenta, $usuario);
 		if(!$validacion){
 			$resultado=$DAO->saveCuentaFinanciera($cuenta);
 			if($resultado){
@@ -19,9 +19,9 @@ class CuentaFinancieraAuthService{
 			return false;
 		}
 	}
-	public function validarCuentaFinanciera(CuentaFinanciera $cuenta){
+	public function validarCuentaFinanciera(CuentaFinanciera $cuenta,Usuario $usuario){
 		$DAO = new CuentaFinancieraDAO();
-		$validacion = $DAO->validarCuentaFinanciera($cuenta);
+		$validacion = $DAO->validarCuentaFinanciera($cuenta, $usuario);
 		if($validacion){
 			return true;
 		}else{
@@ -29,11 +29,11 @@ class CuentaFinancieraAuthService{
 		}
 	}
 //actiualizar cuenta financiera
-	public function eliminarCuentaFinanciera(CuentaFinanciera $cuenta){	
+	public function eliminarCuentaFinanciera(CuentaFinanciera $cuenta,Usuario $usuario){	
 		$DAO = new CuentaFinancieraDAO();
-		$validacion = $DAO->validarCuentaFinanciera($cuenta);
+		$validacion = $DAO->validarCuentaFinanciera($cuenta, $usuario);
 		if($validacion){
-			$resultado = $DAO->deleteCuentaFinanciera($cuenta);
+			$resultado = $DAO->deleteCuentaFinanciera($cuenta, $usuario);
 			if($resultado){
 				return true;
 			}else{
@@ -44,11 +44,11 @@ class CuentaFinancieraAuthService{
 		}
 	}
 //actualizar cuenta financiera
-        public function actualizarCuentaFinanciera(CuentaFinanciera $cuentaNew, CuentaFinanciera $cuentaOLD, $id){
+        public function actualizarCuentaFinanciera(CuentaFinanciera $cuentaNew, CuentaFinanciera $cuentaOLD, Usuario $usuario){
 			$DAO = new CuentaFinancieraDAO();
-			$validacion = $DAO->validarCuentaFinancieraActualizada($cuentaNew, $id);
+			$validacion = $DAO->validarCuentaFinancieraActualizada($cuentaNew, $cuentaOLD, $usuario);
 			if(!$validacion){
-				$resultado = $DAO->updateCuentaFinanciera($cuentaNew, $cuentaOLD);
+				$resultado = $DAO->updateCuentaFinanciera($cuentaNew, $cuentaOLD, $usuario);
 				if($resultado){
 					return true;
 				}else{
@@ -66,6 +66,7 @@ class CuentaFinancieraAuthService{
 				$_SESSION['cuentasCurUser']=json_encode($listaCuentas);
 				return true;
 			}else{
+				$_SESSION['cuentasCurUser']=json_encode([]);
 				return false;
 			}
 		 }

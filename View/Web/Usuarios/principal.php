@@ -1,3 +1,20 @@
+<?php
+session_start();
+if(isset($_SESSION['cuentasCurUser'])){
+    $cuentas = json_decode($_SESSION['cuentasCurUser'], false);
+    $nombrescuentas = [];
+    $nombrescuentas[] = ['nombre' => ''];  // Inicializa el arreglo con un valor por defecto
+    foreach($cuentas as $cuenta){
+        $nombrescuentas[] = [  // Almacena cada cuenta en un arreglo
+            'nombre' => $cuenta->nombre
+        ];
+    }
+    
+}
+?>
+<script>
+    console.log(<?php echo json_encode($nombrescuentas); ?>);
+</script>
 <!DOCTYPE html>
 <html lang="es">
 
@@ -35,7 +52,7 @@
             <form id="formAgregar">
                 <label>Cuenta:</label>
                 <input type="text" id="inputCuenta" name="inputCuenta" required><br><br>
-                <label>Saldo:</label>
+                <label>Cantidad Inicial:</label>
                 <input type="number" id="inputSaldo" name="inputSaldo" required><br><br>
                 <label>Tope:</label>
                 <input type="number" id="inputTope" name="inputTope" required><br><br>
@@ -81,9 +98,13 @@
                     <option value="otros">Otros</option>
                 </select>
                 <br>
-                <label><input type="radio" name="tipoCuentaIngreso">CUENTA #1</label>
-                <label><input type="radio" name="tipoCuentaIngreso">CUENTA #2</label>
-                <label><input type="radio" name="tipoCuentaIngreso">CUENTA #3</label>
+                <?php
+                foreach($nombrescuentas as $nombrecuenta){
+                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
+                         echo "<label><input type='radio' name='tipoCuentaIngreso'>".$nombrecuenta['nombre']."</label>";
+                    }
+                }
+                ?>
             </form>
         </div>
 
@@ -106,23 +127,35 @@
                     <option value="otros">Otros</option>
                 </select>
                 <br>
-                <label><input type="radio" name="tipocuentaEgreso">CUENTA #1</label>
-                <label><input type="radio" name="tipocuentaEgreso">CUENTA #2</label>
-                <label><input type="radio" name="tipocuentaEgreso">CUENTA #3</label>
+                <?php
+                foreach($nombrescuentas as $nombrecuenta){
+                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
+                         echo "<label><input type='radio' name='tipocuentaEgreso'>".$nombrecuenta['nombre']."</label>";
+                    }
+                }
+                ?>
             </form>
         </div>
 
         <div id="dTransferencia">
             <form id="transferenciaCuentas">
                 <label>CUENTA ORIGEN</label><br>
-                <label><input type="radio" name="tipoCuentaOrigen">CUENTA #1</label>
-                <label><input type="radio" name="tipoCuentaOrigen">CUENTA #2</label>
-                <label><input type="radio" name="tipoCuentaOrigen">CUENTA #3</label>
+                <?php
+                foreach($nombrescuentas as $nombrecuenta){
+                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
+                         echo "<label><input type='radio' name='tipoCuentaOrigen'>".$nombrecuenta['nombre']."</label>";
+                    }
+                }
+                ?>
                 <br>
                 <label>CUENTA DESTINO</label><br>
-                <label><input type="radio" name="tipoCuentaDestino">CUENTA #1</label>
-                <label><input type="radio" name="tipoCuentaDestino">CUENTA #2</label>
-                <label><input type="radio" name="tipoCuentaDestino">CUENTA #3</label>
+                <?php
+                foreach($nombrescuentas as $nombrecuenta){
+                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
+                         echo "<label><input type='radio' name='tipoCuentaDestino'>".$nombrecuenta['nombre']."</label>";
+                    }
+                }
+                ?>
             </form>
         </div>
     </div>

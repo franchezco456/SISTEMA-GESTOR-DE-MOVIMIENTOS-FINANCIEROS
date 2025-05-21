@@ -81,8 +81,9 @@ document.addEventListener("DOMContentLoaded", function () {
       .then(response => response.json())  // Recibimos la respuesta del servidor en formato JSON
       .then(data => {  // Si la respuesta es exitosa
         if (data.status === "success") {
-          alert("Cuenta eliminada correctamente.");  // Mostramos un mensaje de éxito
           div.remove();  // Eliminamos el div visualmente de la interfaz
+          fetchCuentas();
+          location.reload();  // Recargamos la página para actualizar la lista de cuentas
         } else {
           alert("Error al eliminar la cuenta.");  // Si ocurre un error, mostramos un mensaje
         }
@@ -131,9 +132,9 @@ document.addEventListener("DOMContentLoaded", function () {
         try {
           const data = JSON.parse(text);  // Intentamos parsear la respuesta a formato JSON
           if (data.status === "success") {
-            alert("Cuenta agregada correctamente.");  // Si la cuenta se agregó correctamente
             fetchCuentas();  // Recargamos las cuentas para actualizar la lista
             formulario.reset();  // Limpiamos el formulario después de enviar
+            location.reload();
           } else {
             alert("Error al agregar: " + data.message);  // Si hay un error, mostramos el mensaje
           }

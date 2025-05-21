@@ -1,17 +1,23 @@
 document.addEventListener("DOMContentLoaded", function () {
     // Recuperamos la cuenta seleccionada del localStorage
     const cuenta = JSON.parse(localStorage.getItem("cuentaSeleccionada"));
-
     // Verificamos si se encontró la cuenta seleccionada
     if (!cuenta) {
         alert("No se seleccionó ninguna cuenta.");
         window.location.href = "../Usuarios/principal.php";  // Redirige si no se seleccionó cuenta
         return;
     }
-
+    function fetchCuentas() {
+    fetch("../../../Controller/CuentaFinancieraController.php") // Realizamos una solicitud GET al backend
+      .then(response => response.json())  // Parseamos la respuesta a JSON
+      .catch(error => {  // Si hay un error, lo mostramos en la consola
+        console.error("Error al cargar cuentas:", error);
+      });
+  }
+    fetchCuentas();  // Llamamos a la función para cargar las cuentas
     // Mostrar los datos actuales de la cuenta
     document.getElementById("nombreActual").textContent = cuenta.usuario;  // Muestra el nombre de usuario
-    document.getElementById("saldoActual").textContent = `$${cuenta.saldo}`;  // Muestra el saldo actual con formato de moneda
+    document.getElementById("saldoActual").textContent = `$${cuenta.cantidadInicial}`;  // Muestra la cantidad inicial con formato de moneda
     document.getElementById("topeActual").textContent = `$${cuenta.tope}`;  // Muestra el tope de la cuenta con formato de moneda
 
 
@@ -59,6 +65,8 @@ document.addEventListener("DOMContentLoaded", function () {
                     if (res.status === "success") {
                         alert("Cuenta actualizada correctamente.");
                         localStorage.removeItem("cuentaSeleccionada");  // Limpiamos el localStorage
+                        fetchCuentas();  // Recargamos las cuentas para actualizar la lista
+                        location.reload();  // Recargamos la página para reflejar los cambios
                         window.location.href = "../Usuarios/principal.php";  // Redirigimos a la página principal
                     } else {
                         alert("Error: " + res.message);  // Si no fue exitosa, mostramos el mensaje de error

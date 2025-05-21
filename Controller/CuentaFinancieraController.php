@@ -45,7 +45,8 @@ function obtenerCuentas($Auth)
             $bancos[] = [  // Almacena cada cuenta en un arreglo
                 'usuario' => $cuenta->nombre,
                 'saldo' => $cuenta->estadoCuenta,
-                'tope' => $cuenta->tope
+                'tope' => $cuenta->tope,
+                'cantidadInicial' => $cuenta->cantidadInicial
             ];
         }
         echo json_encode($bancos);  // Devuelve las cuentas en formato JSON
@@ -68,17 +69,17 @@ function crearCuenta($Auth)
 
     $stdClassusuario = json_decode($_SESSION['usuarioActual'],false);
     $id = $stdClassusuario->id;
-
+    $user = new Usuario($id, null, null, null);
     $cuenta = new CuentaFinanciera(null, $id, $usuario, $saldo, $saldo, null, $tope);
 
-    $result=$Auth->validarCuentaFinanciera($cuenta);
+    $result=$Auth->validarCuentaFinanciera($cuenta, $user);  // Validar si la cuenta ya existe
         // Verificamos si ya existe una cuenta con el mismo nombre de usuario
         if ($result) {
             echo json_encode(['status' => 'error', 'message' => 'La cuenta esta duplicada']);  // Si ya existe, devolver error
             return;
         }
 
-        $insercion = $Auth->crearCuentaFinanciera($cuenta);  // Intentar crear la cuenta
+        $insercion = $Auth->crearCuentaFinanciera($cuenta,$user);  // Intentar crear la cuenta
 
         // Ejecutar la consulta
         if ($insercion) {
@@ -100,9 +101,11 @@ function eliminarCuenta($Auth)
     // Verificar si se pasó el identificador de la cuenta (usuario)
     if (isset($data['usuario'])) {
         $usuario = $data['usuario'];
-
+    $stdClassusuario = json_decode($_SESSION['usuarioActual'],false);
+    $id = $stdClassusuario->id;
+    $user = new Usuario($id, null, null, null);
     $cuenta = new CuentaFinanciera(null, null, $usuario, null, null, null, null);
-    $resultado=$Auth->eliminarCuentaFinanciera($cuenta);  // Intentar eliminar la cuenta
+    $resultado=$Auth->eliminarCuentaFinanciera($cuenta,$user);  // Intentar eliminar la cuenta
 
         // Ejecutar la consulta
         if ($resultado) {
@@ -120,7 +123,7 @@ function modificarCuenta($Auth)
 {
     // Obtener los datos de la solicitud en formato JSON
     $data = json_decode(file_get_contents("php://input"), true);
-
+    $cuentas = json_decode($_SESSION['cuentasCurUser'], false);
     // Verificar si se pasaron todos los parámetros necesarios
     if (
         isset($data['usuarioAntiguo']) &&
@@ -132,14 +135,18 @@ function modificarCuenta($Auth)
         $nuevonombre = $data['nuevoUsuario'];
         $nuevaCantidadInicial = $data['nuevoSaldo'];
         $nuevoTope = $data['nuevoTope'];
-    
+    foreach($cuentas as $cuenta){
+        if($cuenta->nombre == $nombreAntiguo){
+            $idcuenta = $cuenta->idCuenta;
+        }
+    }
     $stdClassusuario = json_decode($_SESSION['usuarioActual'],false);
     $id = $stdClassusuario->id;
-
+    $user = new Usuario($id, null, null, null);
     $CuentaNew = new CuentaFinanciera(null, null, $nuevonombre, $nuevaCantidadInicial, null, null, $nuevoTope);
-    $CuentaOLD = new CuentaFinanciera(null, null, $nombreAntiguo, null, null, null, null);
+    $CuentaOLD = new CuentaFinanciera($idcuenta, null, $nombreAntiguo, null, null, null, null);
     
-    $result=$Auth->actualizarCuentaFinanciera($CuentaNew, $CuentaOLD, $id);  // I
+    $result=$Auth->actualizarCuentaFinanciera($CuentaNew, $CuentaOLD, $user);  // I
 
         // Ejecutar la consulta
         if ($result) {

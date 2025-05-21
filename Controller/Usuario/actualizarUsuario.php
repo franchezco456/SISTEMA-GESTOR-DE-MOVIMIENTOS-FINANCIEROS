@@ -25,6 +25,12 @@ if ($_SERVER['REQUEST_METHOD'] === 'POST') {
     if (!validarCampo($nuevoPass)) {
         $nuevoPass = $curUser->pass;
     }
+    if($nuevoId < 0 ){
+            session_start();
+            $_SESSION['mensaje'] = "la cedula no es valida";
+            header("location: ../../View/Web/Usuarios/ConfiguracionUsuarios.php");
+            exit();
+        }
     $usuarioNew = new Usuario($nuevoId, $nuevoNombre, $nuevoCorreo, $nuevoPass);
     $usuarioOld = new Usuario($curUser->id, $curUser->nombre, $curUser->correo, $curUser->pass);
     $auth = new UsuarioAuthService();
