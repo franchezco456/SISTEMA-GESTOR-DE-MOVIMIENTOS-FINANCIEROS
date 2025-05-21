@@ -5,10 +5,10 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
-    <link rel="stylesheet" href="../../../View/CSS/principal.css">
-    <link rel="stylesheet" href="../../../View/CSS/letras.css">
-    <link rel="stylesheet" href="../../../View/CSS/botones.css">
-    <link rel="stylesheet" href="../../../View/CSS/otros.css">
+    <link rel="stylesheet" href="../../CSS/principal.css">
+    <link rel="stylesheet" href="../../CSS/letras.css">
+    <link rel="stylesheet" href="../../CSS/botones.css">
+    <link rel="stylesheet" href="../../CSS/otros.css">
     
 
     <script src="../../../View/JS/divgenerator.js"></script>
@@ -20,11 +20,11 @@
     <!-- Cuadro Superior -->
     <div id="CuadroSuperior">
         <h1>GESTOR DE MOVIMIENTOS FINANCIEROS</h1>
-        <button class="boton1" style="border: none;">
-            <a href="../Usuarios/ConfiguracionUsuarios.php">
+        <!--<button class="boton1" style="border: none;">-->
+            <a href="./ConfiguracionUsuarios.php" class="boton1" style="border: none;">
                 <img src="../../../View/Media/ajusicon.png" class="ajusicon">
             </a>
-        </button>
+       <!-- </button>-->
     </div>
 
     <!-- Formulario para agregar cuentas -->
