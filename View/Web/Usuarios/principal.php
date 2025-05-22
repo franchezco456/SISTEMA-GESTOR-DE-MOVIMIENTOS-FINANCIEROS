@@ -23,9 +23,9 @@ if(isset($_SESSION['cuentasCurUser'])){
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>Principal</title>
     <link rel="stylesheet" href="../../CSS/principal.css">
-    <link rel="stylesheet" href="../../CSS/letras.css">
-    <link rel="stylesheet" href="../../CSS/botones.css">
-    <link rel="stylesheet" href="../../CSS/otros.css">
+    <!--<link rel="stylesheet" href="../../CSS/letras.css">-->
+    <!--<link rel="stylesheet" href="../../CSS/botones.css">-->
+    <!--<link rel="stylesheet" href="../../CSS/otros.css">-->
     
 
     <script src="../../../View/JS/divgenerator.js"></script>
@@ -37,11 +37,11 @@ if(isset($_SESSION['cuentasCurUser'])){
     <!-- Cuadro Superior -->
     <div id="CuadroSuperior">
         <h1>GESTOR DE MOVIMIENTOS FINANCIEROS</h1>
-        <!--<button class="boton1" style="border: none;">-->
+        <button class="boton1" style="border: none;">
             <a href="./ConfiguracionUsuarios.php" class="boton1" style="border: none;">
                 <img src="../../../View/Media/ajusicon.png" class="ajusicon">
             </a>
-       <!-- </button>-->
+       </button>
     </div>
 
     <!-- Formulario para agregar cuentas -->
@@ -62,25 +62,26 @@ if(isset($_SESSION['cuentasCurUser'])){
         <div id="contenedor"></div>
     </center>
     <div id="dMovimientos">
-        <div class="tarjeta">
-            <button id="bImagen"><img src="../../../View/Media/ingreso.png" style="height: 50px; width: 70px;"></button>
-            <button id="bLabel">INGRESO</button>
-            <label id="label1">Gestiona tus ingresos</label>
+        <div class="tarjeta" onclick="mostrarFormularioIngreso()" style="cursor: pointer;">
+            <img src="../../../View/Media/ingreso.png" style="height: 50px; width: 70px;">
+            <h3>INGRESO</h3>
+            <label>Gestiona tus ingresos</label>
         </div>
-        <div class="tarjeta">
-            <button id="bImagen"><img src="../../../View/Media/egreso.png" style="height: 50px; width: 100px;"></button>
-            <button id="bLabel">Gastos</button>
-            <label id="label1">Controla tus gastos</label>
-        </div>
-        <div class="tarjeta">
-            <button id="bImagen"><img src="../../../View/Media/" style="height: 50px; width: 100px;"></button>
-            <button id="bLabel">Transferencia entre Cuentas</button>
-            <label id="label1">Gestiona las transferencias entre las cuentas</label>
-        </div>
-    </div>
 
+        <div class="tarjeta" onclick="mostrarFormularioEgreso()" style="cursor: pointer;">
+        <img src="../../../View/Media/egreso.png" style="height: 50px; width: 100px;">
+        <h3>GASTOS</h3>
+        <label>Controla tus gastos</label>
+        </div>
+
+        <div class="tarjeta" onclick="mostrarFormularioTransferencia()" style="cursor: pointer;">
+            <img src="../../../View/Media/transferencia.jpg" style="height: 50px; width: 100px;">
+            <h3>TRANSFERENCIA ENTRE CUENTAS</h3>
+            <label>Gestiona las transferencias entre las cuentas</label>
+        </div>
+    </div>  
     <div id="dformulariosIngresoEgreso">
-        <div id="dIngreso">
+        <div id="dIngreso" class="oculto">
             <form id="ingreso">
                 <label>MONTO</label> <input type="number"><br>
                 <label>CATEGORIA</label> <select name="categorias" id="categorias">
@@ -108,8 +109,7 @@ if(isset($_SESSION['cuentasCurUser'])){
             </form>
         </div>
 
-
-        <div id="dEgreso">
+        <div id="dEgreso" class="oculto">
             <form id="egreso">
                 <label>EGRESO</label> <input type="number"><br>
                 <label>CATEGORIA</label> <select name="categorias" id="categorias">
@@ -137,7 +137,7 @@ if(isset($_SESSION['cuentasCurUser'])){
             </form>
         </div>
 
-        <div id="dTransferencia">
+        <div id="dTransferencia" class="oculto">
             <form id="transferenciaCuentas">
                 <label>CUENTA ORIGEN</label><br>
                 <?php
@@ -159,19 +159,35 @@ if(isset($_SESSION['cuentasCurUser'])){
             </form>
         </div>
     </div>
-
-
-
-
-    <!-- Cuadro de <center>
+    <center>
         <div id="CuadroSuperior" style="margin-top: 100px; background-color: aquamarine;">
             <h1>GRAFICAS</h1>
         </div>
-        <div id="inferior" style="display: grid; grid-template-columns: 2fr 1fr;">
-            <canvas id="graficaGastos" width="600" height="300"></canvas>
-            <canvas id="graficaPastel" width="600" height="300"></canvas>
+        <div id="inferior" style="display: grid; grid-template-columns: 1fr 1fr;">
+            <canvas id="graficaGastos" style= "display: flex; margin: auto;"></canvas>
+            <canvas id="graficaPastel" style= "display: flex; margin: auto;"></canvas>
         </div>
-    </center> gráficas -->
+    </center>
+
+<script>
+function mostrarFormularioIngreso() {
+    document.getElementById('dIngreso').classList.remove('oculto');
+    document.getElementById('dEgreso').classList.add('oculto');
+    document.getElementById('dTransferencia').classList.add('oculto');
+}
+
+function mostrarFormularioEgreso() {
+    document.getElementById('dIngreso').classList.add('oculto');
+    document.getElementById('dEgreso').classList.remove('oculto');
+    document.getElementById('dTransferencia').classList.add('oculto');
+}
+
+function mostrarFormularioTransferencia() {
+    document.getElementById('dIngreso').classList.add('oculto');
+    document.getElementById('dEgreso').classList.add('oculto');
+    document.getElementById('dTransferencia').classList.remove('oculto');
+}
+</script>
 
 </body>
 
