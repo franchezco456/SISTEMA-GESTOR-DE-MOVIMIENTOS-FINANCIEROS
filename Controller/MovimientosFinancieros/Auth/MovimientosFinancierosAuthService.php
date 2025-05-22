@@ -9,13 +9,8 @@ public function saveMovimientoFinanciero(MovimientosFinancieros $movimiento, Usu
 $DAO = new movimientosFinancierosDAO();
 $resultado = $DAO->guardarMovimientoFinanciero($movimiento);
 if($resultado){
-  $listaMovimientos=$DAO->consultarMovimientosFinancierosUsuario($user);
-  if(!empty($listaMovimientos)){
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos);
+  return true;
   }else{
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
-  }
-}else{
    return false;
 }
 }
@@ -26,12 +21,7 @@ $validacion = $DAO->validarMovimientosFinancieros($movimiento);
 if($validacion){
 $resultado = $DAO->eliminarMovimientoFinanciero($movimiento);
 if($resultado){
-  $listaMovimientos=$DAO->consultarMovimientosFinancierosUsuario($user);
-  if(!empty($listaMovimientos)){
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos);
-  }else{
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
-  }
+  return true;
 }else{
     return false;
 }
@@ -46,12 +36,7 @@ $validacion = $DAO->validarMovimientosFinancieros($movimiento);
 if($validacion){
 $resultado = $DAO->actualizarMovimientoFinanciero($movimiento);
 if($resultado){
-  $listaMovimientos=$DAO->consultarMovimientosFinancierosUsuario($user);
-  if(!empty($listaMovimientos)){
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos);
-  }else{
-    $_SESSION['movimientosCurUser']=json_encode($listaMovimientos = []);
-  }
+  return true;
 }else{
     return false;
 }

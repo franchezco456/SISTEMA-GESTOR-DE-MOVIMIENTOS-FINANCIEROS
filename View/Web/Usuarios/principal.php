@@ -86,17 +86,11 @@ if(isset($_SESSION['cuentasCurUser'])){
                 <label>MONTO</label> <input type="number"><br>
                 <label>CATEGORIA</label> <select name="categorias" id="categorias">
                     <option disabled selected>Selecciona una categoria</option>
-                    <option value="compras">Compras</option>
-                    <option value="viviendas">Viviendas</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="comidas">Comidas</option>
-                    <option value="vehiculos">Vehiculos</option>
-                    <option value="vida_y_entretenimiento">Vida y Entretenimiento</option>
-                    <option value="comunicaciones">Comunicaciones</option>
-                    <option value="gastos">Gastos financieros</option>
-                    <option value="inversiones">Inversiones</option>
-                    <option value="ingresos">Ingresos</option>
-                    <option value="otros">Otros</option>
+                    <option value="Salario">Salario</option>
+                    <option value="Inversiones">Inversiones</option>
+                    <option value="Renta">Renta</option>
+                    <option value="Regalos">Regalos</option>
+                    <option value="Otros">Otros</option>
                 </select>
                 <br>
                 <?php
@@ -106,6 +100,7 @@ if(isset($_SESSION['cuentasCurUser'])){
                     }
                 }
                 ?>
+                <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
 
@@ -114,17 +109,15 @@ if(isset($_SESSION['cuentasCurUser'])){
                 <label>EGRESO</label> <input type="number"><br>
                 <label>CATEGORIA</label> <select name="categorias" id="categorias">
                     <option disabled selected>Selecciona una categoria</option>
-                    <option value="compras">Compras</option>
-                    <option value="viviendas">Viviendas</option>
-                    <option value="transporte">Transporte</option>
-                    <option value="comidas">Comidas</option>
-                    <option value="vehiculos">Vehiculos</option>
-                    <option value="vida_y_entretenimiento">Vida y Entretenimiento</option>
-                    <option value="comunicaciones">Comunicaciones</option>
-                    <option value="gastos">Gastos financieros</option>
-                    <option value="inversiones">Inversiones</option>
-                    <option value="ingresos">Ingresos</option>
-                    <option value="otros">Otros</option>
+                    <option value="Alimentos">Alimentos</option>
+                    <option value="Facturas">Facturas</option>
+                    <option value="Transporte">Transporte</option>
+                    <option value="Compras">Compras</option>
+                    <option value="Regalos">Regalos</option>
+                    <option value="Educacion">Educacion</option>
+                    <option value="Renta">Renta</option>
+                    <option value="Viajes">Viajes</option>
+                    <option value="Otros">Otros</option>
                 </select>
                 <br>
                 <?php
@@ -134,6 +127,7 @@ if(isset($_SESSION['cuentasCurUser'])){
                     }
                 }
                 ?>
+                <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
 
@@ -156,6 +150,10 @@ if(isset($_SESSION['cuentasCurUser'])){
                     }
                 }
                 ?>
+
+                <label for="monto">Monto de la transaccion</label>
+                <input type="number" placeholder = "monto de la transaccion" name="monto" id="monto" required>
+                <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
     </div>

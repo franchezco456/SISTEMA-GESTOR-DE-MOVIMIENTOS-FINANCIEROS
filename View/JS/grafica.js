@@ -14,17 +14,18 @@
     let Educación = 800;
     let Renta = 900;
     let Viajes = 0;
+    let Otros = 100;
   
     // Arreglo con los nombres de las categorías
     const categorias = [
       "Alimentos", "Facturas", "Transporte", "Compras",
-      "Regalos", "Educación", "Renta", "Viajes"
+      "Regalos", "Educación", "Renta", "Viajes", "Otros"
     ];
   
     // Arreglo con los valores numéricos de gastos, en el mismo orden que las categorías
     const gastos = [
       Alimentos, Facturas, Transporte, Compras,
-      Regalos, Educación, Renta, Viajes
+      Regalos, Educación, Renta, Viajes, Otros
     ];
   
     // -------------------- GRÁFICA DE BARRAS --------------------
