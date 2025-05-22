@@ -1,19 +1,37 @@
 <?php
 session_start();
-if(isset($_SESSION['cuentasCurUser'])){
+if (isset($_SESSION['cuentasCurUser'])) {
     $cuentas = json_decode($_SESSION['cuentasCurUser'], false);
     $nombrescuentas = [];
     $nombrescuentas[] = ['nombre' => ''];  // Inicializa el arreglo con un valor por defecto
-    foreach($cuentas as $cuenta){
+    foreach ($cuentas as $cuenta) {
         $nombrescuentas[] = [  // Almacena cada cuenta en un arreglo
             'nombre' => $cuenta->nombre
         ];
     }
-    
+
+}
+if (isset($_SESSION['movimientosCurUser'])) {
+    $movimientos = json_decode($_SESSION['movimientosCurUser'], false);
+    $movimientosfinancieros = [];
+    foreach ($movimientos as $movimiento) {
+        $movimientosfinancieros[] = [  // Almacena cada movimiento en un arreglo
+            'idMovimiento' => $movimiento->idMovimiento,
+            'categoria' => $movimiento->categoria,
+            'cantidad' => $movimiento->cantidad,
+            'fecha' => $movimiento->fecha,
+            'idCuenta' => $movimiento->idCuenta
+        ];
+    }
+} else {
+    $movimientosfinancieros = ['nomovimientos' => 'No hay movimientos registrados.'];
 }
 ?>
 <script>
     console.log(<?php echo json_encode($nombrescuentas); ?>);
+</script>
+<script>
+    console.log(<?php echo json_encode($movimientosfinancieros); ?>);
 </script>
 <!DOCTYPE html>
 <html lang="es">
@@ -26,7 +44,7 @@ if(isset($_SESSION['cuentasCurUser'])){
     <!--<link rel="stylesheet" href="../../CSS/letras.css">-->
     <!--<link rel="stylesheet" href="../../CSS/botones.css">-->
     <!--<link rel="stylesheet" href="../../CSS/otros.css">-->
-    
+
 
     <script src="../../../View/JS/divgenerator.js"></script>
     <script src="https://cdn.jsdelivr.net/npm/chart.js"></script>
@@ -41,7 +59,12 @@ if(isset($_SESSION['cuentasCurUser'])){
             <a href="./ConfiguracionUsuarios.php" class="boton1" style="border: none;">
                 <img src="../../../View/Media/ajusicon.png" class="ajusicon">
             </a>
-       </button>
+        </button>
+        <button class="boton1" onclick="location.href='../../../Controller/Usuario/Login.php'"><img
+                src="../../../View/Media/iconCerrar.png" class="ajusicon" style="width: 150%; height: 150%;">
+<!-- CREAR CONTROLADOR LOGOUT Y DESTRUIR LA SESION Y QUE DIRIJA AL LOGIN -->
+        </button>
+
     </div>
 
     <!-- Formulario para agregar cuentas -->
@@ -69,9 +92,9 @@ if(isset($_SESSION['cuentasCurUser'])){
         </div>
 
         <div class="tarjeta" onclick="mostrarFormularioEgreso()" style="cursor: pointer;">
-        <img src="../../../View/Media/egreso.png" style="height: 50px; width: 100px;">
-        <h3>GASTOS</h3>
-        <label>Controla tus gastos</label>
+            <img src="../../../View/Media/egreso.png" style="height: 50px; width: 100px;">
+            <h3>GASTOS</h3>
+            <label>Controla tus gastos</label>
         </div>
 
         <div class="tarjeta" onclick="mostrarFormularioTransferencia()" style="cursor: pointer;">
@@ -79,7 +102,7 @@ if(isset($_SESSION['cuentasCurUser'])){
             <h3>TRANSFERENCIA ENTRE CUENTAS</h3>
             <label>Gestiona las transferencias entre las cuentas</label>
         </div>
-    </div>  
+    </div>
     <div id="dformulariosIngresoEgreso">
         <div id="dIngreso" class="oculto">
             <form id="ingreso">
@@ -100,9 +123,9 @@ if(isset($_SESSION['cuentasCurUser'])){
                 </select>
                 <br>
                 <?php
-                foreach($nombrescuentas as $nombrecuenta){
-                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
-                         echo "<label><input type='radio' name='tipoCuentaIngreso'>".$nombrecuenta['nombre']."</label>";
+                foreach ($nombrescuentas as $nombrecuenta) {
+                    if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
+                        echo "<label><input type='radio' name='tipoCuentaIngreso'>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
@@ -128,9 +151,9 @@ if(isset($_SESSION['cuentasCurUser'])){
                 </select>
                 <br>
                 <?php
-                foreach($nombrescuentas as $nombrecuenta){
-                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
-                         echo "<label><input type='radio' name='tipocuentaEgreso'>".$nombrecuenta['nombre']."</label>";
+                foreach ($nombrescuentas as $nombrecuenta) {
+                    if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
+                        echo "<label><input type='radio' name='tipocuentaEgreso'>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
@@ -141,53 +164,115 @@ if(isset($_SESSION['cuentasCurUser'])){
             <form id="transferenciaCuentas">
                 <label>CUENTA ORIGEN</label><br>
                 <?php
-                foreach($nombrescuentas as $nombrecuenta){
-                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
-                         echo "<label><input type='radio' name='tipoCuentaOrigen'>".$nombrecuenta['nombre']."</label>";
+                foreach ($nombrescuentas as $nombrecuenta) {
+                    if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
+                        echo "<label><input type='radio' name='tipoCuentaOrigen'>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
                 <br>
                 <label>CUENTA DESTINO</label><br>
                 <?php
-                foreach($nombrescuentas as $nombrecuenta){
-                    if($nombrecuenta['nombre'] != ''){  // Verifica que el nombre de la cuenta no esté vacío
-                         echo "<label><input type='radio' name='tipoCuentaDestino'>".$nombrecuenta['nombre']."</label>";
+                foreach ($nombrescuentas as $nombrecuenta) {
+                    if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
+                        echo "<label><input type='radio' name='tipoCuentaDestino'>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
             </form>
         </div>
     </div>
+
+    <!-- cuadro Historial -->
+    <center>
+        <div id="CuadroSuperior">
+            <h1>HISTORIAL DE MOVIMIENTOS</h1>
+        </div>
+        <div id="divHistorial">
+            <table class="tablaHistorial">
+                <thead>
+                    <tr>
+                        <th>ID</th>
+                        <th>Categoria</th>
+                        <th>Monto</th>
+                        <th>Fecha</th>
+                        <th>Cuenta</th>
+                    </tr>
+                </thead>
+                <tbody id="tablaDatos">
+                    <?php
+                    if (isset($movimientos)) {
+                        foreach ($movimientos as $movimiento) {
+                            echo "<tr>";
+                            echo "<td>" . $movimiento->idMovimiento . "</td>";
+                            echo "<td>" . $movimiento->categoria . "</td>";
+                            echo "<td>" . $movimiento->cantidad . "</td>";
+                            echo "<td>" . $movimiento->fecha . "</td>";
+                            echo "<td>" . $movimiento->idCuenta . "</td>";
+                            echo "</tr>";
+                        }
+                    } else {
+                        echo "<tr><td colspan='5'>No hay movimientos registrados.</td></tr>";
+                    }
+                    ?>
+                </tbody>
+            </table>
+        </div>
+
+        <div id="divModificarHistorial">
+            <div id="dModificar">
+                <form class="modificarMovimiento">
+                    <label>Modificar Movimiento</label>
+                    <input type="number" id="idMovimientoModificar" name="idMovimientoModificar" required><br><br>
+                    <label>Nueva Categoria</label>
+                    <input type="text" id="nuevaCategoria" name="nuevaCategoria"><br><br>
+                    <label>Nueva Cantidad</label>
+                    <input type="number" id="nuevaCantidad" name="nuevaCantidad"><br><br>
+                    <button type="submit">Modificar</button>
+                </form>
+            </div>
+            <div id="dEliminarHistorial">
+                <form id="eliminarMovimiento">
+                    <label>Eliminar Movimiento</label>
+                    <input type="number" id="idMovimientoEliminar" name="idMovimientoEliminar" required><br><br>
+                    <button type="submit">Eliminar</button>
+                </form>
+            </div>
+
+        </div>
+
+    </center>
     <center>
         <div id="CuadroSuperior" style="margin-top: 100px; background-color: aquamarine;">
             <h1>GRAFICAS</h1>
         </div>
-        <div id="inferior" style="display: grid; grid-template-columns: 1fr 1fr;">
-            <canvas id="graficaGastos" style= "display: flex; margin: auto;"></canvas>
-            <canvas id="graficaPastel" style= "display: flex; margin: auto;"></canvas>
+        <div id="inferior">
+            <canvas id="graficaGastos"></canvas>
+            <canvas id="graficaPastel"></canvas>
         </div>
     </center>
 
-<script>
-function mostrarFormularioIngreso() {
-    document.getElementById('dIngreso').classList.remove('oculto');
-    document.getElementById('dEgreso').classList.add('oculto');
-    document.getElementById('dTransferencia').classList.add('oculto');
-}
 
-function mostrarFormularioEgreso() {
-    document.getElementById('dIngreso').classList.add('oculto');
-    document.getElementById('dEgreso').classList.remove('oculto');
-    document.getElementById('dTransferencia').classList.add('oculto');
-}
 
-function mostrarFormularioTransferencia() {
-    document.getElementById('dIngreso').classList.add('oculto');
-    document.getElementById('dEgreso').classList.add('oculto');
-    document.getElementById('dTransferencia').classList.remove('oculto');
-}
-</script>
+    <script>
+        function mostrarFormularioIngreso() {
+            document.getElementById('dIngreso').classList.remove('oculto');
+            document.getElementById('dEgreso').classList.add('oculto');
+            document.getElementById('dTransferencia').classList.add('oculto');
+        }
+
+        function mostrarFormularioEgreso() {
+            document.getElementById('dIngreso').classList.add('oculto');
+            document.getElementById('dEgreso').classList.remove('oculto');
+            document.getElementById('dTransferencia').classList.add('oculto');
+        }
+
+        function mostrarFormularioTransferencia() {
+            document.getElementById('dIngreso').classList.add('oculto');
+            document.getElementById('dEgreso').classList.add('oculto');
+            document.getElementById('dTransferencia').classList.remove('oculto');
+        }
+    </script>
 
 </body>
 
