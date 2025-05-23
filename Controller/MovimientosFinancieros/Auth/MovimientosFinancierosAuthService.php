@@ -5,7 +5,7 @@ require_once __DIR__ . '/../../../Model/Entidades/Usuario.php';
 require_once __DIR__ . '/../../../Model/Entidades/MovimientosFinancieros.php';
 class MovimientosFinancierosAuthService{
 //saveMovimientoFinanciero
-public function saveMovimientoFinanciero(MovimientosFinancieros $movimiento, Usuario $user){
+public function saveMovimientoFinanciero(MovimientosFinancieros $movimiento){
 $DAO = new movimientosFinancierosDAO();
 $resultado = $DAO->guardarMovimientoFinanciero($movimiento);
 if($resultado){

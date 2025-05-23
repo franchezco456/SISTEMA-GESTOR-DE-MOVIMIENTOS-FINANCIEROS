@@ -3,9 +3,10 @@ session_start();
 if (isset($_SESSION['cuentasCurUser'])) {
     $cuentas = json_decode($_SESSION['cuentasCurUser'], false);
     $nombrescuentas = [];
-    $nombrescuentas[] = ['nombre' => ''];  // Inicializa el arreglo con un valor por defecto
+    //$nombrescuentas[] = ['nombre' => ''];  // Inicializa el arreglo con un valor por defecto
     foreach ($cuentas as $cuenta) {
         $nombrescuentas[] = [  // Almacena cada cuenta en un arreglo
+            'idCuenta'=> $cuenta->idCuenta,
             'nombre' => $cuenta->nombre
         ];
     }
@@ -14,13 +15,21 @@ if (isset($_SESSION['cuentasCurUser'])) {
 if (isset($_SESSION['movimientosCurUser'])) {
     $movimientos = json_decode($_SESSION['movimientosCurUser'], false);
     $movimientosfinancieros = [];
+    $nombreaccount = '';
     foreach ($movimientos as $movimiento) {
+        $nombreaccount = '';  // Reinicia el nombre de la cuenta para cada movimiento
+        foreach ($nombrescuentas as $nombrecuenta) {
+            if ($movimiento->idCuenta == $nombrecuenta['idCuenta']) {  // Verifica que el id de la cuenta coincida
+                $nombreaccount = $nombrecuenta['nombre'];
+            }
+        }
         $movimientosfinancieros[] = [  // Almacena cada movimiento en un arreglo
             'idMovimiento' => $movimiento->idMovimiento,
             'categoria' => $movimiento->categoria,
             'cantidad' => $movimiento->cantidad,
             'fecha' => $movimiento->fecha,
-            'idCuenta' => $movimiento->idCuenta
+            'idCuenta' => $movimiento->idCuenta,
+            'nombre'=> $nombreaccount
         ];
     }
 } else {
@@ -105,8 +114,8 @@ if (isset($_SESSION['movimientosCurUser'])) {
     </div>
     <div id="dformulariosIngresoEgreso">
         <div id="dIngreso" class="oculto">
-            <form id="ingreso">
-                <label>MONTO</label> <input type="number"><br>
+            <form id="ingreso" action="../../../Controller/MovimientosFinancieros/nuevoMovimiento.php" method="POST">
+                <label>MONTO</label> <input type="number" name="monto" id="monto"><br>
                 <label>CATEGORIA</label> <select name="categorias" id="categorias">
                     <option disabled selected>Selecciona una categoria</option>
                     <option value="Salario">Salario</option>
@@ -119,10 +128,11 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 <?php
                 foreach ($nombrescuentas as $nombrecuenta) {
                     if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
-                        echo "<label><input type='radio' name='tipoCuentaIngreso'>" . $nombrecuenta['nombre'] . "</label>";
+                        echo "<label><input type='radio' value=".$nombrecuenta['nombre']." name='tipoCuentaIngreso' id='tipoCuentaIngreso'>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
+                <input type="text" id="inputTipo" name="inputTipo" value="ingreso" hidden>
                 <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
@@ -150,6 +160,7 @@ if (isset($_SESSION['movimientosCurUser'])) {
                     }
                 }
                 ?>
+                <input type="text" id="inputTipo" name="inputTipo" value="egreso" hidden>
                 <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
@@ -199,14 +210,14 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 </thead>
                 <tbody id="tablaDatos">
                     <?php
-                    if (isset($movimientos)) {
-                        foreach ($movimientos as $movimiento) {
+                    if (!empty($movimientosfinancieros)) {
+                        foreach ($movimientosfinancieros as $movimiento) {
                             echo "<tr>";
-                            echo "<td>" . $movimiento->idMovimiento . "</td>";
-                            echo "<td>" . $movimiento->categoria . "</td>";
-                            echo "<td>" . $movimiento->cantidad . "</td>";
-                            echo "<td>" . $movimiento->fecha . "</td>";
-                            echo "<td>" . $movimiento->idCuenta . "</td>";
+                            echo "<td>" . $movimiento['idMovimiento'] . "</td>";
+                            echo "<td>" . $movimiento['categoria'] . "</td>";
+                            echo "<td>" . $movimiento['cantidad'] . "</td>";
+                            echo "<td>" . $movimiento['fecha'] . "</td>";
+                            echo "<td>" . $movimiento['nombre'] . "</td>";
                             echo "</tr>";
                         }
                     } else {
