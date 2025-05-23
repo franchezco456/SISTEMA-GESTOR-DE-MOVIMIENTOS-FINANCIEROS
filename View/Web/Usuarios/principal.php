@@ -217,8 +217,22 @@ if (isset($_SESSION['movimientosCurUser'])) {
             </table>
         </div>
 
+        <div id="dMovimientos">
+        <div class="tarjeta" onclick="mostrarFormularioModificar()" style="cursor: pointer;">
+            <img src="../../../View/Media/modificar.png" style="height: 50px; width: 70px;">
+            <h3>MODIFICAR MOVIMIENTO</h3>
+            <label>Modifica tus gastos</label>
+        </div>
+
+        <div class="tarjeta" onclick="mostrarFormularioEliminar()" style="cursor: pointer;">
+            <img src="../../../View/Media/eliminar.png" style="height: 50px; width: 100px;">
+            <h3>ELIMINAR MOVIMIENTO</h3>
+            <label>elimina tus movimientos</label>
+        </div>
+    </div>
+
         <div id="divModificarHistorial">
-            <div id="dModificar">
+            <div id="dModificar" class="oculto">
                 <form class="modificarMovimiento">
                     <label>Modificar Movimiento</label>
                     <input type="number" id="idMovimientoModificar" name="idMovimientoModificar" required><br><br>
@@ -229,14 +243,13 @@ if (isset($_SESSION['movimientosCurUser'])) {
                     <button type="submit">Modificar</button>
                 </form>
             </div>
-            <div id="dEliminarHistorial">
+            <div id="dEliminarHistorial" class="oculto">
                 <form id="eliminarMovimiento">
                     <label>Eliminar Movimiento</label>
                     <input type="number" id="idMovimientoEliminar" name="idMovimientoEliminar" required><br><br>
                     <button type="submit">Eliminar</button>
                 </form>
             </div>
-
         </div>
 
     </center>
@@ -271,6 +284,18 @@ if (isset($_SESSION['movimientosCurUser'])) {
             document.getElementById('dTransferencia').classList.remove('oculto');
         }
     </script>
+
+    <script>
+    function mostrarFormularioModificar() {
+        document.getElementById('dModificar').classList.remove('oculto');
+        document.getElementById('dEliminarHistorial').classList.add('oculto');
+    }
+
+    function mostrarFormularioEliminar() {
+        document.getElementById('dModificar').classList.add('oculto');
+        document.getElementById('dEliminarHistorial').classList.remove('oculto');
+    }
+</script>
 
 </body>
 
