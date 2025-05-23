@@ -6,7 +6,7 @@ if (isset($_SESSION['cuentasCurUser'])) {
     //$nombrescuentas[] = ['nombre' => ''];  // Inicializa el arreglo con un valor por defecto
     foreach ($cuentas as $cuenta) {
         $nombrescuentas[] = [  // Almacena cada cuenta en un arreglo
-            'idCuenta'=> $cuenta->idCuenta,
+            'idCuenta' => $cuenta->idCuenta,
             'nombre' => $cuenta->nombre
         ];
     }
@@ -29,11 +29,19 @@ if (isset($_SESSION['movimientosCurUser'])) {
             'cantidad' => $movimiento->cantidad,
             'fecha' => $movimiento->fecha,
             'idCuenta' => $movimiento->idCuenta,
-            'nombre'=> $nombreaccount
+            'nombre' => $nombreaccount
         ];
     }
 } else {
     $movimientosfinancieros = ['nomovimientos' => 'No hay movimientos registrados.'];
+}
+if (isset($_SESSION['mensaje'])) {
+    echo "<script>
+            window.onload = function() {
+                alert('" . $_SESSION['mensaje'] . "');
+            };
+          </script>";
+    unset($_SESSION['mensaje']);
 }
 ?>
 <script>
@@ -69,9 +77,9 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 <img src="../../../View/Media/ajusicon.png" class="ajusicon">
             </a>
         </button>
-        <button class="boton1" onclick="location.href='../../../Controller/Usuario/Login.php'"><img
+        <button class="boton1" onclick="location.href='../../../Controller/Usuario/cerrarsesion.php'"><img
                 src="../../../View/Media/iconCerrar.png" class="ajusicon" style="width: 150%; height: 150%;">
-<!-- CREAR CONTROLADOR LOGOUT Y DESTRUIR LA SESION Y QUE DIRIJA AL LOGIN -->
+            <!-- CREAR CONTROLADOR LOGOUT Y DESTRUIR LA SESION Y QUE DIRIJA AL LOGIN -->
         </button>
 
     </div>
@@ -115,8 +123,8 @@ if (isset($_SESSION['movimientosCurUser'])) {
     <div id="dformulariosIngresoEgreso">
         <div id="dIngreso" class="oculto">
             <form id="ingreso" action="../../../Controller/MovimientosFinancieros/nuevoMovimiento.php" method="POST">
-                <label>MONTO</label> <input type="number" name="monto" id="monto"><br>
-                <label>CATEGORIA</label> <select name="categorias" id="categorias">
+                <label>MONTO</label> <input type="number" name="monto" id="monto" required><br>
+                <label>CATEGORIA</label> <select name="categorias" id="categorias" required>
                     <option disabled selected>Selecciona una categoria</option>
                     <option value="Salario">Salario</option>
                     <option value="Inversiones">Inversiones</option>
@@ -128,7 +136,7 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 <?php
                 foreach ($nombrescuentas as $nombrecuenta) {
                     if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
-                        echo "<label><input type='radio' value=".$nombrecuenta['nombre']." name='tipoCuentaIngreso' id='tipoCuentaIngreso'>" . $nombrecuenta['nombre'] . "</label>";
+                        echo "<label><input type='radio' value=" . $nombrecuenta['nombre'] . " name='tipoCuenta' id='tipoCuentaIngreso' required>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
@@ -138,9 +146,9 @@ if (isset($_SESSION['movimientosCurUser'])) {
         </div>
 
         <div id="dEgreso" class="oculto">
-            <form id="egreso">
-                <label>EGRESO</label> <input type="number"><br>
-                <label>CATEGORIA</label> <select name="categorias" id="categorias">
+            <form id="egreso" action="../../../Controller/MovimientosFinancieros/nuevoMovimiento.php" method="POST">
+                <label>EGRESO</label> <input type="number" name="monto" id="monto" required><br>
+                <label>CATEGORIA</label> <select name="categorias" id="categorias" required>
                     <option disabled selected>Selecciona una categoria</option>
                     <option value="Alimentos">Alimentos</option>
                     <option value="Facturas">Facturas</option>
@@ -156,7 +164,7 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 <?php
                 foreach ($nombrescuentas as $nombrecuenta) {
                     if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
-                        echo "<label><input type='radio' name='tipocuentaEgreso'>" . $nombrecuenta['nombre'] . "</label>";
+                        echo "<label><input type='radio' value=" . $nombrecuenta['nombre'] . " name='tipoCuenta' required>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
@@ -166,12 +174,13 @@ if (isset($_SESSION['movimientosCurUser'])) {
         </div>
 
         <div id="dTransferencia" class="oculto">
-            <form id="transferenciaCuentas">
+            <form id="transferenciaCuentas" action="../../../Controller/MovimientosFinancieros/nuevoMovimiento.php"
+                method="POST">
                 <label>CUENTA ORIGEN</label><br>
                 <?php
                 foreach ($nombrescuentas as $nombrecuenta) {
                     if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
-                        echo "<label><input type='radio' name='tipoCuentaOrigen'>" . $nombrecuenta['nombre'] . "</label>";
+                        echo "<label><input type='radio' value=" . $nombrecuenta['nombre'] . " name='tipoCuentaOrigen' required>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
@@ -180,13 +189,13 @@ if (isset($_SESSION['movimientosCurUser'])) {
                 <?php
                 foreach ($nombrescuentas as $nombrecuenta) {
                     if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
-                        echo "<label><input type='radio' name='tipoCuentaDestino'>" . $nombrecuenta['nombre'] . "</label>";
+                        echo "<label><input type='radio' value=" . $nombrecuenta['nombre'] . " name='tipoCuentaDestino' required>" . $nombrecuenta['nombre'] . "</label>";
                     }
                 }
                 ?>
-
                 <label for="monto">Monto de la transaccion</label>
-                <input type="number" placeholder = "monto de la transaccion" name="monto" id="monto" required>
+                <input type="number" placeholder="monto de la transaccion" name="monto" id="monto" required>
+                <input type="text" id="inputTipo" name="inputTipo" value="transferencia" hidden>
                 <button type="submit" value="submit">Guardar</button>
             </form>
         </div>
@@ -229,33 +238,97 @@ if (isset($_SESSION['movimientosCurUser'])) {
         </div>
 
         <div id="dMovimientos">
-        <div class="tarjeta" onclick="mostrarFormularioModificar()" style="cursor: pointer;">
-            <img src="../../../View/Media/modificar.png" style="height: 50px; width: 70px;">
-            <h3>MODIFICAR MOVIMIENTO</h3>
-            <label>Modifica tus gastos</label>
-        </div>
+            <div class="tarjeta" onclick="mostrarFormularioModificar()" style="cursor: pointer;">
+                <img src="../../../View/Media/modificar.png" style="height: 50px; width: 70px;">
+                <h3>MODIFICAR MOVIMIENTO</h3>
+                <label>Modifica tus gastos</label>
+            </div>
 
-        <div class="tarjeta" onclick="mostrarFormularioEliminar()" style="cursor: pointer;">
-            <img src="../../../View/Media/eliminar.png" style="height: 50px; width: 100px;">
-            <h3>ELIMINAR MOVIMIENTO</h3>
-            <label>elimina tus movimientos</label>
+            <div class="tarjeta" onclick="mostrarFormularioEliminar()" style="cursor: pointer;">
+                <img src="../../../View/Media/eliminar.png" style="height: 50px; width: 100px;">
+                <h3>ELIMINAR MOVIMIENTO</h3>
+                <label>elimina tus movimientos</label>
+            </div>
         </div>
-    </div>
 
         <div id="divModificarHistorial">
             <div id="dModificar" class="oculto">
-                <form class="modificarMovimiento">
+                <form class="modificarMovimiento" action="../../../Controller/MovimientosFinancieros/modificarMovimiento.php"
+                method="POST">
                     <label>Modificar Movimiento</label>
                     <input type="number" id="idMovimientoModificar" name="idMovimientoModificar" required><br><br>
+
+                    <label>Tipo de Movimiento</label>
+                    <select id="tipoMovimientoModificar" name="tipoMovimientoModificar" required
+                        onchange="mostrarCategoriasModificar()">
+                        <option value="" disabled selected>Selecciona tipo</option>
+                        <option value="ingreso">Ingreso</option>
+                        <option value="egreso">Egreso</option>
+                    </select><br><br>
+
                     <label>Nueva Categoria</label>
-                    <input type="text" id="nuevaCategoria" name="nuevaCategoria"><br><br>
+                    <select id="categoriaIngresoModificar" name="nuevaCategoria" class="oculto">
+                        <option value="" disabled selected>Selecciona una categoria</option>
+                        <option value="Salario">Salario</option>
+                        <option value="Inversiones">Inversiones</option>
+                        <option value="Renta">Renta</option>
+                        <option value="Regalos">Regalos</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                    <select id="categoriaEgresoModificar" name="nuevaCategoria" class="oculto">
+                        <option value="" disabled selected>Selecciona una categoria</option>
+                        <option value="Alimentos">Alimentos</option>
+                        <option value="Facturas">Facturas</option>
+                        <option value="Transporte">Transporte</option>
+                        <option value="Compras">Compras</option>
+                        <option value="Regalos">Regalos</option>
+                        <option value="Educacion">Educacion</option>
+                        <option value="Renta">Renta</option>
+                        <option value="Viajes">Viajes</option>
+                        <option value="Otros">Otros</option>
+                    </select>
+                    <br><br>
+
                     <label>Nueva Cantidad</label>
-                    <input type="number" id="nuevaCantidad" name="nuevaCantidad"><br><br>
+                    <input type="number" id="nuevaCantidad" name="nuevaCantidad" required><br><br>
+                     <label>Nueva cuenta</label>
+                    <?php
+                    foreach ($nombrescuentas as $nombrecuenta) {
+                        if ($nombrecuenta['nombre'] != '') {  // Verifica que el nombre de la cuenta no esté vacío
+                            echo "<label><input type='radio' value=" . $nombrecuenta['nombre'] . " name='Cuentanueva' id='tipoCuentaIngreso' required>" . $nombrecuenta['nombre'] . "</label>";
+                        }
+                    }
+                    ?>
                     <button type="submit">Modificar</button>
                 </form>
+
+                <script>
+                    function mostrarCategoriasModificar() {
+                        var tipo = document.getElementById('tipoMovimientoModificar').value;
+                        document.getElementById('categoriaIngresoModificar').classList.add('oculto');
+                        document.getElementById('categoriaEgresoModificar').classList.add('oculto');
+                        document.getElementById('categoriaIngresoModificar').required = false;
+                        document.getElementById('categoriaEgresoModificar').required = false;
+
+                        if (tipo === 'ingreso') {
+                            document.getElementById('categoriaIngresoModificar').classList.remove('oculto');
+                            document.getElementById('categoriaIngresoModificar').required = true;
+                        } else if (tipo === 'egreso') {
+                            document.getElementById('categoriaEgresoModificar').classList.remove('oculto');
+                            document.getElementById('categoriaEgresoModificar').required = true;
+                        }
+                    }
+                </script>
+
+                <style>
+                    .oculto {
+                        display: none;
+                    }
+                </style>
             </div>
             <div id="dEliminarHistorial" class="oculto">
-                <form id="eliminarMovimiento">
+                <form id="eliminarMovimiento" action="../../../Controller/MovimientosFinancieros/eliminarmovimiento.php"
+                    method="POST">
                     <label>Eliminar Movimiento</label>
                     <input type="number" id="idMovimientoEliminar" name="idMovimientoEliminar" required><br><br>
                     <button type="submit">Eliminar</button>
@@ -297,16 +370,16 @@ if (isset($_SESSION['movimientosCurUser'])) {
     </script>
 
     <script>
-    function mostrarFormularioModificar() {
-        document.getElementById('dModificar').classList.remove('oculto');
-        document.getElementById('dEliminarHistorial').classList.add('oculto');
-    }
+        function mostrarFormularioModificar() {
+            document.getElementById('dModificar').classList.remove('oculto');
+            document.getElementById('dEliminarHistorial').classList.add('oculto');
+        }
 
-    function mostrarFormularioEliminar() {
-        document.getElementById('dModificar').classList.add('oculto');
-        document.getElementById('dEliminarHistorial').classList.remove('oculto');
-    }
-</script>
+        function mostrarFormularioEliminar() {
+            document.getElementById('dModificar').classList.add('oculto');
+            document.getElementById('dEliminarHistorial').classList.remove('oculto');
+        }
+    </script>
 
 </body>
 

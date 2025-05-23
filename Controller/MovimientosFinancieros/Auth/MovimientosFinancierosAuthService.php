@@ -15,7 +15,7 @@ if($resultado){
 }
 }
 //deleteMovimientoFinanciero
-public function deleteMovimientoFinanciero(MovimientosFinancieros $movimiento, Usuario $user){
+public function deleteMovimientoFinanciero(MovimientosFinancieros $movimiento){
 $DAO = new movimientosFinancierosDAO();
 $validacion = $DAO->validarMovimientosFinancieros($movimiento);
 if($validacion){
@@ -30,7 +30,7 @@ if($resultado){
 }
 }
 //actualizarMovimientoFinanciero
-public function updateMovimientoFinanciero(MovimientosFinancieros $movimiento, Usuario $user){
+public function updateMovimientoFinanciero(MovimientosFinancieros $movimiento){
 $DAO = new movimientosFinancierosDAO();
 $validacion = $DAO->validarMovimientosFinancieros($movimiento);
 if($validacion){

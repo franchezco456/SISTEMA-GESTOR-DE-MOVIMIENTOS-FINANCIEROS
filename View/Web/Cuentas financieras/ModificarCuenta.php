@@ -1,3 +1,12 @@
+<?php
+session_start();
+$currentUser = json_decode($_SESSION['usuarioActual'], false);
+if (isset($_SESSION['usuarioActual'])) {
+}else{
+  header('location: ../Usuarios/login.php');
+  exit();
+}
+?>
 <!DOCTYPE html>
 <html lang="es">
 

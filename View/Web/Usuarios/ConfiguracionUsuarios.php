@@ -6,6 +6,9 @@ if (!empty($currentUser)) {
   $nombreUsuario = $currentUser->nombre;
   $correoUsuario = $currentUser->correo;
   $passUsuario = $currentUser->pass;
+}else{
+  header('location: login.php');
+  exit();
 }
 if (isset($_SESSION['mensaje'])) {
     echo "<script>

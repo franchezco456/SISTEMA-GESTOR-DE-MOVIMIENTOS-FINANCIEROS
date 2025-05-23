@@ -91,29 +91,16 @@ $result=$cn->validarExistencia($stmt);
 $cn->desconectar();
 return $result;
 }
-public function listarMovimientosFinancieros(){
+public function listarMovimientosFinancieros(Usuario $usuario){
+$idUsuario= $usuario->getId();
 $cn = new Conexion();
 $cn->conectar();
-$sql = "SELECT * FROM movimientosfinancieros";
+$sql = "SELECT categoria, SUM(cantidad) AS total FROM movimientosfinancieros WHERE idUSuario = ? GROUP BY categoria";
 $stmt = $cn->getStatements($sql);
+$stmt->bindParam(1,$idUsuario);
 $result = $cn->executeQuery($stmt);
 $cn->desconectar();
-if(!empty($result)){
-    $movimientosFinancieros = [];
-    while($fila = array_shift($result)){
-        $movimientosFinancieros [] = new MovimientosFinancieros ( 
-        $fila['idMovimiento'],
-        $fila['idCuenta'],
-        $fila['categoria'],
-        $fila['cantidad'],
-        $fila['fecha'],
-        $fila['idUsuario']
-        );
-    }
-    return $movimientosFinancieros;
-}else{
-    return $movimientosFinancieros = [];
-}
+return $result;
 }
 }
 ?>

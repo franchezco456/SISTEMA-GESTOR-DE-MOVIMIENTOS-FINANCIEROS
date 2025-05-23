@@ -2,6 +2,7 @@
 require_once "../Model/Entidades/Usuario.php";
 require_once "../Model/Entidades/CuentaFinanciera.php";
 require_once __DIR__ . '../CuentaFinanciera/Auth/CuentaFinancieraAuthService.php';
+require_once __DIR__ . '../MovimientosFinancieros/Auth/MovimientosFinancierosAuthService.php';
 $Auth = new CuentaFinancieraAuthService();
 // Verificar el método de la solicitud (GET, POST, PUT, DELETE)
 switch ($_SERVER['REQUEST_METHOD']) {
@@ -53,6 +54,8 @@ function obtenerCuentas($Auth)
     } else {
         echo json_encode(['status' => 'error', 'message' => 'No hay cuentas registradas']);  // Si no hay cuentas, se devuelve un mensaje de error
     }
+    $movimientos = new MovimientosFinancierosAuthService();
+    $movimientos->consultMovimientosFinancierosUsuario($usuario);  // Consultar los movimientos financieros del usuario
 }
 
 // Función para crear una nueva cuenta en la base de datos
@@ -106,9 +109,11 @@ function eliminarCuenta($Auth)
         $user = new Usuario($id, null, null, null);
         $cuenta = new CuentaFinanciera(null, null, $usuario, null, null, null, null);
         $resultado = $Auth->eliminarCuentaFinanciera($cuenta, $user);  // Intentar eliminar la cuenta
-
+        
         // Ejecutar la consulta
         if ($resultado) {
+            $movimientos = new MovimientosFinancierosAuthService();
+            $movimientos->consultMovimientosFinancierosUsuario($user);  // Consultar los movimientos financieros del usuario
             echo json_encode(['status' => 'success', 'message' => 'Cuenta eliminada correctamente']);  // Si se eliminó, devolver éxito
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Error al eliminar la cuenta']);  // Si hubo un error, devolver mensaje de error
@@ -150,6 +155,8 @@ function modificarCuenta($Auth)
 
         // Ejecutar la consulta
         if ($result) {
+            $movimientos = new MovimientosFinancierosAuthService();
+            $movimientos->consultMovimientosFinancierosUsuario($user);
             echo json_encode(['status' => 'success', 'message' => 'Cuenta actualizada correctamente']);  // Si se actualizó correctamente, devolver éxito
         } else {
             echo json_encode(['status' => 'error', 'message' => 'Nombre de la cuenta ya existente']);  // Si hubo un error, devolver mensaje de error
